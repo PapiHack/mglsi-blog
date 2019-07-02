@@ -7,7 +7,7 @@ ob_start();
 ?>
 
 <div id="contenu">
-    <form action="" method="POST">
+    <form action="index.php?action=register" method="POST">
         <table>
             <tr>
                 <td> <label for="Nom">Nom</label> </td>

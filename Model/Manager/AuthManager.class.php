@@ -92,4 +92,13 @@ class AuthManager
         return new User($data);
     }
 
+    public function tryAuth($login, $mdp)
+    {
+        $request = $this->db->prepare('SELECT * FROM Auth WHERE login = :login and mdp = :mdp');
+        return $request->execute([
+            'login' => $login,
+            'mdp'   => $mdp
+        ]);
+    }
+
 }

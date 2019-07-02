@@ -32,6 +32,15 @@ function loadData($dataClass)
         require_once($file);
 }
 
+function loadService($service)
+{
+    $file = '../Model/Service/'.$service.'.class.php';
+
+    if(file_exists($file))
+        require_once($file);
+}
+
 spl_autoload_register('loadEntity');
 spl_autoload_register('loadManager');
 spl_autoload_register('loadData');
+spl_autoload_register('loadService');

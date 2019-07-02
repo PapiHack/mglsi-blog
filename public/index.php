@@ -35,6 +35,10 @@
      {
         $authController->connexion();
      }
+     else if($_GET['action'] === 'register')
+     {
+        $authController->register();
+     }
  }
 
  $blogController->index();

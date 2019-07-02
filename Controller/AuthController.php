@@ -13,15 +13,17 @@ require_once('../Config/autoloader.php');
  */
 class AuthController 
 {
+    private $auth;
     private $connexion;
     private $authManager;
-    private $auth;
+    private $validationService;
 
     public function __construct()
     {
         $this->auth = true; 
         $this->connexion = Connexion::getConnexion();
         $this->authManager = new AuthManager($this->connexion);  
+        $this->validationService = new Validation($this->authManager);
     }
 
     public function inscription()
@@ -32,5 +34,10 @@ class AuthController
     public function connexion()
     {
         require_once('../Views/Auth/connexion.php');
+    }
+
+    public function register()
+    {
+        var_dump($this->validationService->registerValidation($_POST)); die;
     }
 }

@@ -89,4 +89,16 @@ class UserManager
         ]);
     }
 
+    public function pseudo_exist($pseudo)
+    {
+        $request = $this->db->prepare('SELECT * FROM User WHERE pseudo = :pseudo');
+        return $request->execute(['pseudo' => $pseudo]);
+    }
+
+    public function mail_exist($mail)
+    {
+        $request = $this->db->prepare('SELECT * FROM User WHERE mail = :mail');
+        return $request->execute(['mail' => $mail]);
+    }
+
 }
