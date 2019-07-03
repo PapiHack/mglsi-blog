@@ -31,7 +31,7 @@ ob_start();
             </tr>
             <tr>
                 <td> <label for="cmdp">Confirmer mot de passe</label> </td>
-                <td> <input type="password" name="Mot de passe" id="Mot de passe"/> </td>
+                <td> <input type="password" name="cmdp" id="cmdp"/> </td>
             </tr>
             <tr>
                 <td> </td>

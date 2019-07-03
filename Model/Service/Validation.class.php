@@ -12,9 +12,10 @@ class Validation
     private $userManager;
     private $authManager;
 
-    public function __construct(AuthManager $authManager)
+    public function __construct(AuthManager $authManager, UserManager $userManager)
     {
         $this->authManager = $authManager;
+        $this->userManager = $userManager;
     }
 
     public function authValidation(Array $data)
@@ -31,8 +32,23 @@ class Validation
             {
                 if($this->passwordValidation($data['mdp'], $data['cmdp']))
                 {
-                    echo "Validation OK !!!"; 
-                    // vérifier si le pseudo et l'@ mail existe via $userManager
+                    if($this->emailValidation($data['mail']))
+                    {
+                        if($this->userManager->pseudo_exist($data['pseudo']))
+                        {
+                            if($this->userManager->mail_exist($data['mail']))
+                            {
+                                echo "Validation OK !!!"; die();
+                                // vérifier si le pseudo et l'@ mail (valide) existe via $userManager
+                            }
+                            else
+                                $response['emailExist'] = 'Cette adresse email existe déjà.';
+                        }
+                        else
+                            $response['pseudoExist'] = 'Ce pseudo existe déjà.';
+                    }
+                    else
+                        $response['emailError'] = 'Adresse email invalide.';
                 }
                 else
                     $response['passwordError'] = 'Les mots de passe ne sont pas identiques.';
@@ -48,7 +64,7 @@ class Validation
 
     private function minLengthValidation($str)
     {
-        return $valid = strlen($str) > 4 ? true : false;
+        return strlen($str) >= 4 ;
     }
 
     private function emailValidation($mail)

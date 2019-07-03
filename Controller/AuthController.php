@@ -16,6 +16,7 @@ class AuthController
     private $auth;
     private $connexion;
     private $authManager;
+    private $userManager;
     private $validationService;
 
     public function __construct()
@@ -23,7 +24,8 @@ class AuthController
         $this->auth = true; 
         $this->connexion = Connexion::getConnexion();
         $this->authManager = new AuthManager($this->connexion);  
-        $this->validationService = new Validation($this->authManager);
+        $this->userManager = new UserManager($this->connexion);
+        $this->validationService = new Validation($this->authManager, $this->userManager);
     }
 
     public function inscription()
