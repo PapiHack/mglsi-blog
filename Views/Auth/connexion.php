@@ -7,7 +7,14 @@ ob_start();
 ?>
 
 <div id="contenu">
-    <form action="" method="POST">
+<?php  if(isset($error)) { ?>
+
+    <div>
+        <h3 style="color: red;"> <?= $error ?> </h3>
+    </div>
+
+    <?php } ?>
+    <form action="index.php?action=login" method="POST">
         <table>
             <tr>
                 <td> <label for="pseudo">Pseudo</label> </td>

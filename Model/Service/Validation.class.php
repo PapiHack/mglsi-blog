@@ -20,7 +20,11 @@ class Validation
 
     public function authValidation(Array $data)
     {
-        return $this->authManager->tryAuth($data['login'], $data['mdp']);
+        if($this->isNotEmpty($data))
+        {
+            return $this->authManager->tryAuth($data['pseudo'], $data['mdp']);
+        }
+        return false;
     }
 
     public function registerValidation(Array $data)
@@ -75,5 +79,23 @@ class Validation
     private function passwordValidation($password, $confirm)
     {
         return $password === $confirm;
+    }
+
+    private function isNotEmpty(Array $data)
+    {
+        return isset($data) && !empty($data);
+    }
+
+    private function hasAllData(Array $data)
+    {
+        if($this->isNotEmpty($data))
+        {
+            foreach($data as $key => $value)
+            {
+                if(empty($data[$key]))
+                    return false;
+            }
+        }
+        return true;
     }
 }

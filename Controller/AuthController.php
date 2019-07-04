@@ -42,4 +42,17 @@ class AuthController
     {
         var_dump($this->validationService->registerValidation($_POST)); die;
     }
+
+    public function login()
+    {
+        if($this->validationService->authValidation($_POST))
+        {
+            echo "OK !"; die;
+        }
+        else 
+        {
+            $error = "Login ou mot de passe incorrecte !";
+            require_once('../Views/Auth/connexion.php');
+        }
+    }
 }
