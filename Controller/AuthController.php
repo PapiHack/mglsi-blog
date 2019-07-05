@@ -18,11 +18,15 @@ class AuthController
     private $authManager;
     private $userManager;
     private $validationService;
+    private $membre;
+    private $articleManager;
 
     public function __construct()
     {
+        SessionManager::start();
         $this->auth = true; 
         $this->connexion = Connexion::getConnexion();
+        $this->articleManager = new ArticleManager($this->connexion);  
         $this->authManager = new AuthManager($this->connexion);  
         $this->userManager = new UserManager($this->connexion);
         $this->validationService = new Validation($this->authManager, $this->userManager);
@@ -35,6 +39,19 @@ class AuthController
 
     public function connexion()
     {
+        if(SessionManager::get('user'))
+        {
+            if(SessionManager::get('user')->getStatut() === 'user')
+            {
+                require_once('../Views/User/Membre/index.php');
+                die();
+            }
+            else if(SessionManager::get('user')->getStatut() === 'admin')
+            {
+                require_once('../Views/User/Admin/index.php');
+                die();
+            }
+        }
         require_once('../Views/Auth/connexion.php');
     }
 
@@ -55,14 +72,81 @@ class AuthController
 
     public function login()
     {
-        if($this->validationService->authValidation($_POST))
+        
+        if(SessionManager::get('user'))
         {
-            echo "OK !"; die;
+            $this->connexion();
         }
         else 
         {
-            $error = "Login ou mot de passe incorrecte !";
-            require_once('../Views/Auth/connexion.php');
+            if($this->validationService->authValidation($_POST))
+            {
+                $userAuth = $this->authManager->getAuth($_POST['pseudo'], $_POST['mdp']);
+                $user = $this->authManager->getUserAuthenticated($userAuth->getId());
+                SessionManager::set('user', $user);
+                SessionManager::set('userAuth', $userAuth);
+                $this->membre = $user->getStatut() === 'user' ? true : false;
+                ($this->membre) == true ? require_once('../Views/User/Membre/index.php') : require_once('../Views/User/Admin/index.php');
+                die;
+            }
+            else 
+            {
+                $error = "Login ou mot de passe incorrecte !";
+                require_once('../Views/Auth/connexion.php');
+            }
         }
+    }
+
+    public function getMemberArticles()
+    {
+        if(SessionManager::get('user'))
+        {
+            $articles = $this->articleManager->getArticleByAuthor($_SESSION['user']->getId());
+            require_once('../Views/User/Membre/articles.php'); die;
+        }
+        else
+            $this->connexion();
+    }
+
+    public function writeArticle()
+    {
+        if(SessionManager::get('user'))
+        {
+            $categories = (new CategorieManager($this->connexion))->getAll();
+            SessionManager::set('categories', $categories);
+            require_once('../Views/User/Membre/writeArticle.php'); die();
+        }
+        else
+            $this->connexion();
+    }
+
+    public function storeWrittedArticle()
+    {
+
+        if(SessionManager::get('user'))
+        {
+            $response = $this->validationService->articleValidation($_POST);
+            if($response === true)
+            {
+                $article = new Article($_POST);
+                $article->setAuteur(SessionManager::get('user')->getId());
+                $this->articleManager->add($article);
+                $success = 'Votre article a bien été enregistré et publié !';
+                require_once('../Views/User/Membre/writeArticle.php'); die();
+            }
+            else
+            {
+                $error = $response;
+                require_once('../Views/User/Membre/writeArticle.php'); die();
+            }
+        }
+        else
+            $this->connexion();
+    }
+
+    public function logout()
+    {
+        SessionManager::destroy();
+        require_once('../Views/Auth/connexion.php');
     }
 }

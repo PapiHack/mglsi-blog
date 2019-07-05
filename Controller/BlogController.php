@@ -22,6 +22,7 @@ class BlogController
 
     public function __construct()
     {
+        SessionManager::start();
         $this->connexion = Connexion::getConnexion();
         $this->articleManager = new ArticleManager($this->connexion);
         $this->categorieManager = new CategorieManager($this->connexion);

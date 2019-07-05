@@ -103,4 +103,10 @@ class Validation
             return true;
         }
     }
+
+    public function articleValidation()
+    {
+        $response = ($this->hasAllData($_POST)) ? true : 'Veuillez remplir tous les champs svp !';
+        return $response; 
+    }
 }

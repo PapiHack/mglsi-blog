@@ -24,6 +24,7 @@ class Article
     private $dateCreation;   
     private $dateModification;
     private $categorie;
+    private $auteur;
 
     public function __construct(Array $data)
     {
@@ -88,5 +89,15 @@ class Article
     public function setCategorie($categorie)
     {
         $this->categorie = $categorie;
+    }
+
+    public function getAuteur()
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur($auteur)
+    {
+        $this->auteur = $auteur;
     }
 }

@@ -21,7 +21,6 @@ class User
     private $id;
     private $nom;
     private $prenom;
-    private $pseudo;
     private $mail;
     private $statut;
 
@@ -58,16 +57,6 @@ class User
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
-    }
-
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
     }
 
     public function getMail()

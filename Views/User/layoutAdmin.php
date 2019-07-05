@@ -13,10 +13,10 @@
 </head>
 <body>
 
-    <?php require_once('_partials/header.php');  ?>
+    <?php require_once('../Views/_partials/header.php'); ?>
     
     <?= $content ?>
 
-    <?php if(!isset($this->auth)) require_once('_partials/menu.php'); ?>
+    <?php require_once('../Views/_partials/menu_admin.php'); ?>
 </body>
 </html>

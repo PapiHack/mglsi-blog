@@ -32,12 +32,13 @@ class ArticleManager
     public function add(Article $article)
     {
         $request = $this->db->prepare('INSERT INTO Article (titre, contenu, categorie, 
-        dateCreation, dateModification) VALUES(:titre, :contenu, :categorie, NOW(), NOW())');
+        dateCreation, dateModification, auteur) VALUES(:titre, :contenu, :categorie, NOW(), NOW(), :auteur)');
                     
         return $request->execute([
             'titre'     => $article->getTitre(),
             'contenu'   => $article->getContenu(),
-            'categorie' => $article->getCategorie()
+            'categorie' => $article->getCategorie(),
+            'auteur'    => $article->getAuteur()
         ]);
     }
 
@@ -96,6 +97,20 @@ class ArticleManager
             $articles [] = new Article($data);
         }
 
+        return $articles;
+    }
+
+    public function getArticleByAuthor($author)
+    {
+        $articles = array();
+
+        $request = $this->db->query('SELECT * FROM Article WHERE auteur = '. $author);
+
+        while($data = $request->fetch(PDO::FETCH_ASSOC))
+        {
+            $articles [] = new Article($data);
+        }
+        
         return $articles;
     }
 }

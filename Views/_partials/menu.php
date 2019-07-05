@@ -10,5 +10,8 @@
 	<ul>
 		<li> <a href="index.php?action=inscription">S'inscrire</a> </li>
 		<li> <a href="index.php?action=connexion">Se connecter</a> </li>
+		<?php if(SessionManager::get('user')) { ?>
+		<li><a href="index.php?action=login">Mon Espace perso</a></li>
+		<?php } ?>
 	</ul>
 </div>

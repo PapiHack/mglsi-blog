@@ -103,4 +103,16 @@ class AuthManager
         return count($request->fetchAll());
     }
 
+    public function getAuth($login, $mdp)
+    {
+        $request = $this->db->prepare('SELECT * FROM Auth WHERE login = :login and mdp = :mdp');
+        $request->execute([
+            'login' => $login,
+            'mdp'   => $mdp
+        ]);
+
+        return new Auth($request->fetch(PDO::FETCH_ASSOC));
+
+    }
+
 }

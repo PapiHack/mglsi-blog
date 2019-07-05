@@ -33,13 +33,12 @@ class UserManager
 
     public function add(User $user)
     {
-        $request = $this->db->prepare('INSERT INTO User (nom, prenom, pseudo,
-        mail, statut) VALUES(:nom, :prenom, :pseudo, :mail, :statut)');
+        $request = $this->db->prepare('INSERT INTO User (nom, prenom,
+        mail, statut) VALUES(:nom, :prenom, :mail, :statut)');
                     
         return $request->execute([
             'nom'    => $user->getNom(),
             'prenom' => $user->getPrenom(),
-            'pseudo' => $user->getPseudo(),
             'mail'   => $user->getMail(),
             'statut' => $user->getStatut()
         ]);
@@ -77,22 +76,21 @@ class UserManager
 
     public function update(User $user)
     {
-        $request = $this->db->prepare('UPDATE User SET nom = : nom, prenom = :prenom, 
-                            pseudo = :pseudo, mail = :mail, statut = :statut');
+        $request = $this->db->prepare('UPDATE User SET nom = : nom, prenom = :prenom,
+                         mail = :mail, statut = :statut');
         
         return $request->execute([
             'nom'    => $user->getNom(),
             'prenom' => $user->getPrenom(),
-            'pseudo' => $user->getPseudo(),
             'mail'   => $user->getMail(),
             'statut' => $user->getStatut()
         ]);
     }
 
-    public function pseudo_exist($pseudo)
+    public function pseudo_exist($login)
     {
-        $request = $this->db->prepare('SELECT * FROM User WHERE pseudo = :pseudo');
-        $request->execute(['pseudo' => $pseudo]);
+        $request = $this->db->prepare('SELECT * FROM Auth WHERE login = :login');
+        $request->execute(['login' => $login]);
 
         return count($request->fetchAll());
     }

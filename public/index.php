@@ -11,6 +11,8 @@
  * par l'utiisateur et l'action à executer.
  */
 
+ // Refactoring à faire ===> switch case au lieu des else if !!!!!!!
+
  require_once('../Controller/BlogController.php');
  require_once('../Controller/AuthController.php');
 
@@ -42,6 +44,22 @@
      else if($_GET['action'] === 'login')
      {
          $authController->login();
+     }
+     else if($_GET['action'] === 'logout')
+     {
+         $authController->logout();
+     }
+     else if($_GET['action'] === 'getMemberArticles')
+     {
+         $authController->getMemberArticles();
+     }
+     else if($_GET['action'] === 'writeArticle')
+     {
+         $authController->writeArticle();
+     }
+     else if($_GET['action'] === 'storeWrittedArticle')
+     {
+         $authController->storeWrittedArticle();
      }
  }
 
