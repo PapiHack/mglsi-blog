@@ -33,8 +33,8 @@ class UserManager
 
     public function add(User $user)
     {
-        $request = $this->db->prepare('INSERT INTO User (nom, prenom, pseudo, 
-        mail, statut VALUES(:nom, :prenom, :pseudo, :mail, :statut');
+        $request = $this->db->prepare('INSERT INTO User (nom, prenom, pseudo,
+        mail, statut) VALUES(:nom, :prenom, :pseudo, :mail, :statut)');
                     
         return $request->execute([
             'nom'    => $user->getNom(),
@@ -92,13 +92,17 @@ class UserManager
     public function pseudo_exist($pseudo)
     {
         $request = $this->db->prepare('SELECT * FROM User WHERE pseudo = :pseudo');
-        return $request->execute(['pseudo' => $pseudo]);
+        $request->execute(['pseudo' => $pseudo]);
+
+        return count($request->fetchAll());
     }
 
     public function mail_exist($mail)
     {
         $request = $this->db->prepare('SELECT * FROM User WHERE mail = :mail');
-        return $request->execute(['mail' => $mail]);
+        $request->execute(['mail' => $mail]);
+
+        return count($request->fetchAll());
     }
 
 }

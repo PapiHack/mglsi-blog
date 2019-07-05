@@ -32,7 +32,7 @@ class ArticleManager
     public function add(Article $article)
     {
         $request = $this->db->prepare('INSERT INTO Article (titre, contenu, categorie, 
-        dateCreation, dateModification VALUES(:titre, :contenu, :categorie, NOW(), NOW())');
+        dateCreation, dateModification) VALUES(:titre, :contenu, :categorie, NOW(), NOW())');
                     
         return $request->execute([
             'titre'     => $article->getTitre(),

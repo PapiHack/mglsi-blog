@@ -37,7 +37,7 @@ class Article
 
     public function setId($id)
     {
-        $this->id = (int) $id;
+        $this->id = $id;
     }
 
     public function getTitre()

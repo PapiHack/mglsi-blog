@@ -40,7 +40,17 @@ class AuthController
 
     public function register()
     {
-        var_dump($this->validationService->registerValidation($_POST)); die;
+        $registerValid = $this->validationService->registerValidation($_POST);
+
+        if($registerValid === true)
+        {
+            $this->userManager->add(new User($_POST));
+            $nbUsers = count($this->userManager->getAll());
+            $idUser = $nbUsers == 0 ? 1 : $this->userManager->getAll()[$nbUsers - 1]->getId();
+            $this->authManager->add(new Auth(['idUser' => $idUser, 'login' => $_POST['pseudo'], 'mdp' => $_POST['mdp']]));
+            $success = 'Votre inscription a bien été prise en compte !';
+        }
+        require_once('../Views/Auth/inscription.php');
     }
 
     public function login()

@@ -35,7 +35,7 @@ class Auth
 
     public function setId($id)
     {
-        $this->id;
+        $this->id = $id;
     }
 
     public function getIdUser()
@@ -45,7 +45,7 @@ class Auth
 
     public function setIdUser($idUser)
     {
-        $this->$idUser = $idUser;
+        $this->idUser = $idUser;
     }
 
     public function getLogin()
@@ -55,7 +55,7 @@ class Auth
 
     public function setLogin($login)
     {
-        $this->$login = $login;
+        $this->login = $login;
     }
 
     public function getMdp()

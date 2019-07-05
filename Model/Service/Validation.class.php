@@ -29,39 +29,44 @@ class Validation
 
     public function registerValidation(Array $data)
     {
-        
-        if($this->minLengthValidation($data['pseudo']))
+        //$response = null;
+        if($this->hasAllData($data))
         {
-            if($this->minLengthValidation($data['mdp']))
+            if($this->minLengthValidation($data['pseudo']))
             {
-                if($this->passwordValidation($data['mdp'], $data['cmdp']))
+                if($this->minLengthValidation($data['mdp']))
                 {
-                    if($this->emailValidation($data['mail']))
+                    if($this->passwordValidation($data['mdp'], $data['cmdp']))
                     {
-                        if($this->userManager->pseudo_exist($data['pseudo']))
+                        if($this->emailValidation($data['mail']))
                         {
-                            if($this->userManager->mail_exist($data['mail']))
+                            if(!$this->userManager->pseudo_exist($data['pseudo']))
                             {
-                                echo "Validation OK !!!"; die();
-                                // vérifier si le pseudo et l'@ mail (valide) existe via $userManager
+                                if(!$this->userManager->mail_exist($data['mail']))
+                                {
+                                    return true;
+                                    //echo "Validation OK !!!"; die();
+                                }
+                                else
+                                    $response = ['error' => 'Cette adresse email existe déjà.', 'data' => $data];
                             }
                             else
-                                $response['emailExist'] = 'Cette adresse email existe déjà.';
+                                $response = ['error' => 'Ce pseudo existe déjà.', 'data' => $data];
                         }
                         else
-                            $response['pseudoExist'] = 'Ce pseudo existe déjà.';
+                            $response = ['error' => 'Adresse email invalide.', 'data' => $data] ;
                     }
                     else
-                        $response['emailError'] = 'Adresse email invalide.';
+                        $response = ['error' => 'Les mots de passe ne sont pas identiques.', 'data' => $data];
                 }
                 else
-                    $response['passwordError'] = 'Les mots de passe ne sont pas identiques.';
+                    $response = ['error' => 'Le mot de passe doit être plus de 4 caractères.', 'data' => $data];
             }
             else
-                $response['passwordLengthError'] = 'Le mot de passe doit être plus de 4 caractères.';
+                $response = ['error' => 'Le pseudo être plus de 4 caractères.', 'data' => $data];
         }
         else
-            $response['pseudo'] = 'Le pseudo être plus de 4 caractères.';
+            $response = ['error' => 'Veuillez remplir tous les champs svp !', 'data' => $data];
 
         return $response;
     }
@@ -92,10 +97,10 @@ class Validation
         {
             foreach($data as $key => $value)
             {
-                if(empty($data[$key]))
+                if(empty($value))
                     return false;
             }
+            return true;
         }
-        return true;
     }
 }

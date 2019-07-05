@@ -42,7 +42,7 @@ class User
 
     public function getNom()
     {
-        $this->nom;
+        return $this->nom;
     }
 
     public function setNom($nom)
@@ -52,17 +52,17 @@ class User
 
     public function getPrenom()
     {
-        $this->prenom;
+        return $this->prenom;
     }
 
     public function setPrenom($prenom)
     {
-        $this->nom = $prenom;
+        $this->prenom = $prenom;
     }
 
     public function getPseudo()
     {
-        $this->pseudo;
+        return $this->pseudo;
     }
 
     public function setPseudo($pseudo)
@@ -72,7 +72,7 @@ class User
 
     public function getMail()
     {
-        $this->mail;
+        return $this->mail;
     }
 
     public function setMail($mail)
@@ -82,7 +82,7 @@ class User
 
     public function getStatut()
     {
-        $this->statut;
+        return $this->statut;
     }
 
     public function setStatut($statut)
