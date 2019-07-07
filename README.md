@@ -37,4 +37,4 @@ Il a été découpé en sous-couches à savoir :
     Contenant une classe représentant la connexion à votre BD. 
 
     - Service  
-    Contenant pour le moment une classe permettant de faciliter un peu plus la gestion des sessions (sorte de wrapper), ainsi qu'une autre dédiée à la validation.
+    Contenant pour le moment une classe permettant de faciliter un peu plus la gestion   des sessions (sorte de wrapper), ainsi qu'une autre dédiée à la validation.
