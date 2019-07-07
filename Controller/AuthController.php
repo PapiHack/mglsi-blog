@@ -13,19 +13,16 @@ require_once('../Config/autoloader.php');
  */
 class AuthController 
 {
-    private $auth;
     private $connexion;
     private $authManager;
     private $userManager;
     private $validationService;
-    private $membre;
     private $articleManager;
     private $categorieManager;
 
     public function __construct()
     {
         SessionManager::start();
-        $this->auth = true; 
         $this->connexion = Connexion::getConnexion();
         $this->articleManager = new ArticleManager($this->connexion);  
         $this->categorieManager = new CategorieManager($this->connexion);  
@@ -43,18 +40,10 @@ class AuthController
     {
         if(SessionManager::get('user'))
         {
-            if(SessionManager::get('user')->getStatut() === 'user')
-            {
-                require_once('../Views/User/Membre/index.php');
-                die();
-            }
-            else if(SessionManager::get('user')->getStatut() === 'admin')
-            {
-                require_once('../Views/User/Admin/index.php');
-                die();
-            }
+            SessionManager::get('user')->getStatut() === 'user' ? require_once('../Views/User/Membre/index.php') : require_once('../Views/User/Admin/index.php');
         }
-        require_once('../Views/Auth/connexion.php');
+        else
+            require_once('../Views/Auth/connexion.php');
     }
 
     public function register()
@@ -74,7 +63,6 @@ class AuthController
 
     public function login()
     {
-        
         if(SessionManager::get('user'))
         {
             $this->connexion();
@@ -87,9 +75,7 @@ class AuthController
                 $user = $this->authManager->getUserAuthenticated($userAuth->getId());
                 SessionManager::set('user', $user);
                 SessionManager::set('userAuth', $userAuth);
-                $this->membre = $user->getStatut() === 'user' ? true : false;
-                ($this->membre) == true ? require_once('../Views/User/Membre/index.php') : require_once('../Views/User/Admin/index.php');
-                die;
+                $user->getStatut() === 'user' ? require_once('../Views/User/Membre/index.php') : require_once('../Views/User/Admin/index.php');
             }
             else 
             {
@@ -104,7 +90,7 @@ class AuthController
         if(SessionManager::get('user'))
         {
             $articles = $this->articleManager->getArticleByAuthor($_SESSION['user']->getId());
-            require_once('../Views/User/Membre/articles.php'); die;
+            require_once('../Views/User/Membre/articles.php');
         }
         else
             $this->connexion();
@@ -116,7 +102,7 @@ class AuthController
         {
             $categories = (new CategorieManager($this->connexion))->getAll();
             SessionManager::set('categories', $categories);
-            require_once('../Views/User/Membre/writeArticle.php'); die();
+            require_once('../Views/User/Membre/writeArticle.php');
         }
         else
             $this->connexion();
@@ -134,12 +120,12 @@ class AuthController
                 $article->setAuteur(SessionManager::get('user')->getId());
                 $this->articleManager->add($article);
                 $success = 'Votre article a bien été enregistré et publié !';
-                require_once('../Views/User/Membre/writeArticle.php'); die();
+                require_once('../Views/User/Membre/writeArticle.php');
             }
             else
             {
                 $error = $response;
-                require_once('../Views/User/Membre/writeArticle.php'); die();
+                require_once('../Views/User/Membre/writeArticle.php');
             }
         }
         else
@@ -157,7 +143,7 @@ class AuthController
         if(SessionManager::get('user'))
         {
             $articles = $this->articleManager->getAll();
-            require_once('../Views/User/Admin/gestionArticle.php'); die;
+            require_once('../Views/User/Admin/gestionArticle.php');
         }
         else
             $this->connexion();
@@ -168,7 +154,7 @@ class AuthController
         if(SessionManager::get('user'))
         {
             $membres = $this->userManager->getAllMembres();
-            require_once('../Views/User/Admin/gestionMembre.php'); die;
+            require_once('../Views/User/Admin/gestionMembre.php');
         }
         else
             $this->connexion();
@@ -182,7 +168,7 @@ class AuthController
             $admins = array_filter($allAdmins, function($admin){
                 return $admin != SessionManager::get('user');
             });
-            require_once('../Views/User/Admin/gestionAdmin.php'); die;
+            require_once('../Views/User/Admin/gestionAdmin.php');
         }
         else
             $this->connexion();
@@ -193,7 +179,7 @@ class AuthController
         if(SessionManager::get('user'))
         {
             $categories = $this->categorieManager->getAll();
-            require_once('../Views/User/Admin/gestionCategorie.php'); die;
+            require_once('../Views/User/Admin/gestionCategorie.php');
         }
         else
             $this->connexion();
@@ -203,7 +189,7 @@ class AuthController
     {
         if(SessionManager::get('user'))
         {
-            require_once('../Views/User/Admin/addCategorie.php'); die;
+            require_once('../Views/User/Admin/addCategorie.php');
         }
         else
             $this->connexion();
@@ -219,16 +205,15 @@ class AuthController
             {
                 $this->categorieManager->add(new Categorie(['id' => '', 'libelle' => $_POST['libelle']]));
                 $success = 'Votre catégorie a bien été enregistré !';
-                require_once('../Views/User/Admin/addCategorie.php'); die();
+                require_once('../Views/User/Admin/addCategorie.php');
             }
             else
             {
                 $error = $response;
-                require_once('../Views/User/Admin/addCategorie.php'); die();
+                require_once('../Views/User/Admin/addCategorie.php');
             }
         }
         else
             $this->connexion();
-
     }
 }

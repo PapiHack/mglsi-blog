@@ -17,6 +17,6 @@
     
     <?= $content ?>
 
-    <?php if(!isset($this->auth)) require_once('_partials/menu.php'); ?>
+    <?php if($this instanceof BlogController) require_once('_partials/menu.php'); ?>
 </body>
 </html>

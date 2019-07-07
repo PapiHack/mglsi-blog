@@ -9,9 +9,8 @@
  * Ce fichier représente le contrôle frontal de l'application également appelé FrontController.
  * Toutes les requêtes passent par ce fichier; il fait la correspondance entre l'url saisit
  * par l'utiisateur et l'action à executer.
+ * 
  */
-
- // Refactoring à faire ===> switch case au lieu des else if !!!!!!!
 
  require_once('../Controller/BlogController.php');
  require_once('../Controller/AuthController.php');
@@ -59,8 +58,10 @@
                             break;
         case 'storeCategorie': $authController->storeCategorie();
                             break;
+        default : $blogController->index();
+                        break;
         
      }
  }
-
- $blogController->index();
+ else
+    $blogController->index();
