@@ -5,7 +5,7 @@
  * @since 25/06/19
  * @version 1.0.0
  * 
- * Classer permettant de gérer la validation de certains formulaires.
+ * Classe permettant de gérer la validation de certains formulaires.
  */
 class Validation 
 {

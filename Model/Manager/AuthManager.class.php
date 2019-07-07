@@ -97,7 +97,7 @@ class AuthManager
         $request = $this->db->prepare('SELECT * FROM Auth WHERE login = :login and mdp = :mdp');
         $request->execute([
             'login' => $login,
-            'mdp'   => $mdp
+            'mdp'   => md5(sha1(str_rot13($mdp)))
         ]);
         
         return count($request->fetchAll());
@@ -108,7 +108,7 @@ class AuthManager
         $request = $this->db->prepare('SELECT * FROM Auth WHERE login = :login and mdp = :mdp');
         $request->execute([
             'login' => $login,
-            'mdp'   => $mdp
+            'mdp'   => md5(sha1(str_rot13($mdp)))
         ]);
 
         return new Auth($request->fetch(PDO::FETCH_ASSOC));

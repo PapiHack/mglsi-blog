@@ -65,6 +65,6 @@ class Auth
 
     public function setMdp($mdp)
     {
-        $this->mdp = $mdp;
+        $this->mdp = md5(sha1(str_rot13($mdp)));
     }
 }
