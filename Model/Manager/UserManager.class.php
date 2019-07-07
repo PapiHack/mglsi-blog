@@ -103,4 +103,32 @@ class UserManager
         return count($request->fetchAll());
     }
 
+    public function getAllMembres()
+    {
+        $users = array();
+
+        $request = $this->db->query('SELECT * FROM User WHERE statut = \'user\'');
+
+        while($data = $request->fetch(PDO::FETCH_ASSOC))
+        {
+            $users [] = new User($data);
+        }
+        
+        return $users;
+    }
+
+    public function getAllAdmins()
+    {
+        $users = array();
+
+        $request = $this->db->query('SELECT * FROM User WHERE statut = \'admin\' ');
+
+        while($data = $request->fetch(PDO::FETCH_ASSOC))
+        {
+            $users [] = new User($data);
+        }
+        
+        return $users;
+    }
+
 }

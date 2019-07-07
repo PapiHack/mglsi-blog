@@ -1,5 +1,4 @@
-<?php 
-SessionManager::start();
+<?php
 
 $title = 'Mon espace perso'; 
 

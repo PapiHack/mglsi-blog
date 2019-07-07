@@ -20,6 +20,7 @@ class AuthController
     private $validationService;
     private $membre;
     private $articleManager;
+    private $categorieManager;
 
     public function __construct()
     {
@@ -27,9 +28,10 @@ class AuthController
         $this->auth = true; 
         $this->connexion = Connexion::getConnexion();
         $this->articleManager = new ArticleManager($this->connexion);  
+        $this->categorieManager = new CategorieManager($this->connexion);  
         $this->authManager = new AuthManager($this->connexion);  
         $this->userManager = new UserManager($this->connexion);
-        $this->validationService = new Validation($this->authManager, $this->userManager);
+        $this->validationService = new Validation($this->authManager, $this->userManager, $this->categorieManager);
     }
 
     public function inscription()
@@ -148,5 +150,85 @@ class AuthController
     {
         SessionManager::destroy();
         require_once('../Views/Auth/connexion.php');
+    }
+
+    public function gestionArticle()
+    {
+        if(SessionManager::get('user'))
+        {
+            $articles = $this->articleManager->getAll();
+            require_once('../Views/User/Admin/gestionArticle.php'); die;
+        }
+        else
+            $this->connexion();
+    }
+
+    public function gestionMembre()
+    {
+        if(SessionManager::get('user'))
+        {
+            $membres = $this->userManager->getAllMembres();
+            require_once('../Views/User/Admin/gestionMembre.php'); die;
+        }
+        else
+            $this->connexion();
+    }
+
+    public function gestionAdmin()
+    {
+        if(SessionManager::get('user'))
+        {
+            $allAdmins = $this->userManager->getAllAdmins();
+            $admins = array_filter($allAdmins, function($admin){
+                return $admin != SessionManager::get('user');
+            });
+            require_once('../Views/User/Admin/gestionAdmin.php'); die;
+        }
+        else
+            $this->connexion();
+    }
+
+    public function gestionCategorie()
+    {
+        if(SessionManager::get('user'))
+        {
+            $categories = $this->categorieManager->getAll();
+            require_once('../Views/User/Admin/gestionCategorie.php'); die;
+        }
+        else
+            $this->connexion();
+    }
+
+    public function addCategorie()
+    {
+        if(SessionManager::get('user'))
+        {
+            require_once('../Views/User/Admin/addCategorie.php'); die;
+        }
+        else
+            $this->connexion();
+    }
+
+    public function storeCategorie()
+    {
+
+        if(SessionManager::get('user'))
+        {
+            $response = $this->validationService->categorieValidation($_POST);
+            if($response === true)
+            {
+                $this->categorieManager->add(new Categorie(['id' => '', 'libelle' => $_POST['libelle']]));
+                $success = 'Votre catégorie a bien été enregistré !';
+                require_once('../Views/User/Admin/addCategorie.php'); die();
+            }
+            else
+            {
+                $error = $response;
+                require_once('../Views/User/Admin/addCategorie.php'); die();
+            }
+        }
+        else
+            $this->connexion();
+
     }
 }

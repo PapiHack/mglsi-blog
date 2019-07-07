@@ -59,7 +59,31 @@
      }
      else if($_GET['action'] === 'storeWrittedArticle')
      {
-         $authController->storeWrittedArticle();
+         $authController->storeWrittedArticle(); 
+     }
+     else if($_GET['action'] === 'gestionArticle')
+     {
+         $authController->gestionArticle();
+     }
+     else if($_GET['action'] === 'gestionMembre')
+     {
+         $authController->gestionMembre();
+     }
+     else if($_GET['action'] === 'gestionAdmin')
+     {
+         $authController->gestionAdmin();
+     }
+     else if($_GET['action'] === 'gestionCategorie')
+     {
+         $authController->gestionCategorie();
+     }
+     else if($_GET['action'] === 'addCategorie')
+     {
+         $authController->addCategorie();
+     }
+     else if($_GET['action'] === 'storeCategorie')
+     {
+         $authController->storeCategorie();
      }
  }
 

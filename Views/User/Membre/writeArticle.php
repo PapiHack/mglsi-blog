@@ -1,6 +1,6 @@
 <?php $title = 'Mon espace perso'; 
 
-$entete = 'Mon espace perso';
+$entete = SessionManager::get('user')->getStatut() === 'user' ? 'Mon espace perso' : 'Espace Admin';
 
 ob_start();
 
@@ -46,12 +46,19 @@ ob_start();
 <script>
     document.getElementById('cancel').addEventListener('click', function(event){
         event.preventDefault()
-        window.location.replace('http://localhost/mglsi_news/public/index.php?action=connexion')
+        window.location.replace('http://localhost/mglsi_news/public/index.php?action=login')
     })
 </script>
 
 <?php $content = ob_get_clean(); 
 
-require_once('../Views/User/layoutMembre.php');
+if(SessionManager::get('user')->getStatut() === 'user')
+{
+    require_once('../Views/User/layoutMembre.php'); 
+}
+else
+{
+    require_once('../Views/User/layoutAdmin.php');
+}
 
 ?>

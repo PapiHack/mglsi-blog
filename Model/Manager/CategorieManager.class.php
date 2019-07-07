@@ -76,5 +76,13 @@ class CategorieManager
             'libelle' => $categorie->getLibelle(),
             'id'      => $categorie->getId()
         ]);
-    } 
+    }
+
+    public function categorie_exist($libelle)
+    {
+        $request = $this->db->prepare('SELECT * FROM Categorie WHERE libelle = :libelle');
+        $request->execute(['libelle' => $libelle]);
+
+        return count($request->fetchAll());
+    }
 }

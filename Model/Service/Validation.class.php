@@ -11,11 +11,15 @@ class Validation
 {
     private $userManager;
     private $authManager;
+    private $categorieManager;
 
-    public function __construct(AuthManager $authManager, UserManager $userManager)
+    public function __construct(AuthManager $authManager, 
+                                UserManager $userManager,
+                                CategorieManager $categorieManager)
     {
         $this->authManager = $authManager;
         $this->userManager = $userManager;
+        $this->categorieManager = $categorieManager;
     }
 
     public function authValidation(Array $data)
@@ -108,5 +112,20 @@ class Validation
     {
         $response = ($this->hasAllData($_POST)) ? true : 'Veuillez remplir tous les champs svp !';
         return $response; 
+    }
+
+    public function categorieValidation()
+    {
+        if($this->hasAllData($_POST))
+        {
+            if(!$this->categorieManager->categorie_exist($_POST['libelle']))
+            {
+                return true;
+            }
+            else
+                return 'Cette catégorie existe déjà !';
+        }
+        else
+            return 'Veuillez donner un libellé svp !';
     }
 }

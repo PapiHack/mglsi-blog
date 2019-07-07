@@ -114,5 +114,15 @@ class AuthManager
         return new Auth($request->fetch(PDO::FETCH_ASSOC));
 
     }
+    
+    public function getAuthByUser($user)
+    {
+        $user = (int) $user;
+
+        $request = $this->db->prepare('SELECT * FROM Auth WHERE idUser = :user');
+        $request->execute(['user' => $user]);
+
+        return new Auth($request->fetch(PDO::FETCH_ASSOC));
+    }
 
 }
