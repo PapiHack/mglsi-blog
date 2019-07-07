@@ -29,61 +29,37 @@
  }
  else if(isset($_GET['action']))
  {
-     if($_GET['action'] === 'inscription')
+     switch ($_GET['action'])
      {
-        $authController->inscription();
-     }
-     else if($_GET['action'] === 'connexion')
-     {
-        $authController->connexion();
-     }
-     else if($_GET['action'] === 'register')
-     {
-        $authController->register();
-     }
-     else if($_GET['action'] === 'login')
-     {
-         $authController->login();
-     }
-     else if($_GET['action'] === 'logout')
-     {
-         $authController->logout();
-     }
-     else if($_GET['action'] === 'getMemberArticles')
-     {
-         $authController->getMemberArticles();
-     }
-     else if($_GET['action'] === 'writeArticle')
-     {
-         $authController->writeArticle();
-     }
-     else if($_GET['action'] === 'storeWrittedArticle')
-     {
-         $authController->storeWrittedArticle(); 
-     }
-     else if($_GET['action'] === 'gestionArticle')
-     {
-         $authController->gestionArticle();
-     }
-     else if($_GET['action'] === 'gestionMembre')
-     {
-         $authController->gestionMembre();
-     }
-     else if($_GET['action'] === 'gestionAdmin')
-     {
-         $authController->gestionAdmin();
-     }
-     else if($_GET['action'] === 'gestionCategorie')
-     {
-         $authController->gestionCategorie();
-     }
-     else if($_GET['action'] === 'addCategorie')
-     {
-         $authController->addCategorie();
-     }
-     else if($_GET['action'] === 'storeCategorie')
-     {
-         $authController->storeCategorie();
+        case 'inscription': $authController->inscription();
+                            break;
+        case 'connexion': $authController->connexion();
+                            break;
+        case 'register': $authController->register();
+                            break;
+        case 'login': $authController->login();
+                            break;
+        case 'logout': $authController->logout();
+                            break;
+        case 'getMemberArticles': $authController->getMemberArticles();
+                            break;
+        case 'writeArticle': $authController->writeArticle();
+                            break;
+        case 'storeWrittedArticle': $authController->storeWrittedArticle();
+                            break;
+        case 'gestionArticle': $authController->gestionArticle();
+                            break;
+        case 'gestionMembre': $authController->gestionMembre();
+                            break;
+        case 'gestionAdmin': $authController->gestionAdmin();
+                            break;
+        case 'gestionCategorie': $authController->gestionCategorie();
+                            break;
+        case 'addCategorie': $authController->addCategorie();
+                            break;
+        case 'storeCategorie': $authController->storeCategorie();
+                            break;
+        
      }
  }
 
