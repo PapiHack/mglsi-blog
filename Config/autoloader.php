@@ -6,6 +6,8 @@
  * @since 25/06/19
  * @version 1.0.0
  * 
+ * Je géres l'autoloading des classes ici.
+ * 
  */
 
  function loadEntity($entity)

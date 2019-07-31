@@ -32,7 +32,7 @@ class SessionManager
         $_SESSION[$key] = $value;
     }
 
-    public static function display()
+    public static function debug()
     {
         echo '<pre>';
         print_r($_SESSION);

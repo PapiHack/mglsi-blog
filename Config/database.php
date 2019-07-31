@@ -5,10 +5,6 @@
  * @author P@piHack3R
  * @since 25/06/19
  * @version 1.0.0
- * 
- */
-
- /**
   * 
   * Renseignez les paramètres de connexion à votre BD ici
   *

@@ -9,14 +9,35 @@
     <title> <?= $title ?> </title>
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" type="text/css" href="<?= asset('style.css') ?>">
+	<link rel="stylesheet" type="text/css" href="<?= asset('style.css') ?>"/>
+	<link rel="stylesheet" type="text/css" href="<?= asset('bootstrap/css/bootstrap.min.css') ?>"/>
+	<link rel="stylesheet" type="text/css" href="<?= asset('font-awesome/css/font-awesome.min.css') ?>"/>
 </head>
 <body>
 
-    <?php require_once('_partials/header.php');  ?>
     
-    <?= $content ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+            <br>
+                <?php require_once('_partials/header.php');  ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <?= $content ?>
+            </div>
+            <div class="col-lg-4">
+                <?php if($this instanceof BlogController) require_once('_partials/menu.php'); ?>
+            </div>
+        </div>
+    </div>
 
-    <?php if($this instanceof BlogController) require_once('_partials/menu.php'); ?>
+    <script src="<?= asset('bootstrap/js/bootstrap.min.js') ?>"></script>
+    <script src="<?= asset('jquery.js') ?>"></script>
+    <script src="<?= asset('jquery.datatable.js') ?>"></script>
+    <script src="<?= asset('datatable.bootstrap.js') ?>"></script>
+    <script src="<?= asset('sweetalert.js') ?>"></script>
+    <script src="<?= asset('sweetalert2.js') ?>"></script>
 </body>
 </html>

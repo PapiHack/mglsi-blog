@@ -6,29 +6,44 @@ ob_start();
 
 ?>
 
-<div id="contenu">
+<div id="contenu" class="col-lg-12">
 <?php  if(isset($error)) { ?>
 
     <div>
         <h3 style="color: red;"> <?= $error ?> </h3>
     </div>
 
-    <?php } ?>
-    <form action="index.php?action=login" method="POST">
-        <table>
-            <tr>
-                <td> <label for="pseudo">Pseudo</label> </td>
-                <td> <input type="text" name="pseudo" required id="pseudo" placeholder="Votre pseudo ici"/> </td>
-            </tr>
-            <tr>
-                <td> <label for="mdp">Mot de passe</label> </td>
-                <td> <input type="password" name="mdp" required id="mdp" /> </td>
-            </tr>
-            <tr>
-                <td> </td>
-                <td> <input type="submit" value="Se connecter"> <button id="cancel">Annuler</button> </td>
-            </tr>
-        </table>
+    <?php }  ?>
+    <form action="index.php?action=login" method="POST" class="form-vertical" align="center">
+        <div class="form-group">
+            <legend>Authentification</legend>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="pseudo" class="col-lg-3">Pseudo</label>
+                <div class="col-lg-6">
+                    <input type="text" name="pseudo" class="form-control" required id="pseudo" placeholder="Votre pseudo..."/>
+                </div> 
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="form-group">
+                <label for="mdp" class="col-lg-3">Mot de passe</label>
+                <div class="col-lg-6">
+                    <input type="password" placeholder="Votre mot de passe..." class="form-control" name="mdp" required id="mdp" />
+                </div> 
+            </div>
+        </div>
+
+            <br>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-4">
+                <input type="submit" value="Se connecter" class="btn btn-success"> <button id="cancel" class="btn btn-danger">Annuler</button>
+            </div>
+        </div>
     </form>
 </div>
 
