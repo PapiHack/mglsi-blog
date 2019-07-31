@@ -1,4 +1,4 @@
-# Refactoring du blog  
+# Refactoring du blog + nouvelles features  
 
 Refactoring d'un blog en appliquant le motif MVC et la POO.
 
