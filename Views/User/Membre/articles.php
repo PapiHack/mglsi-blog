@@ -8,25 +8,34 @@ ob_start();
 
 <div id="contenu">
 <h1>Liste de mes articles</h1>
-<p style="font-size: 1.5em;"><a href="index.php?action=writeArticle">Ecrire un nouvel article</a></p>
+<p style="font-size: 1.5em;"><a href="index.php?action=writeArticle" class="btn btn-success"><i class="fa fa-edit"></i>  Ecrire un nouvel article</a></p>
+    <br>
     <?php if(empty($articles)){ ?>
     <h2>Vous n'avez pas encore d'article(s).</h2>
     <?php } else{ ?>
-        <table>
-            <tr>
-                <th><b>Titre</b></th>
-                <th><b>Date de publication</b></th>
-                <th align="center"><b>Opérations</b></th>
-            </tr>     
-        <?php foreach($articles as $article) {
-        ?>
-        <tr>
-            <td><?= $article->getTitre() ?></td>
-            <td> <?= $article->getDateCreation() ?> </td>
-            <td><button>Détails</button> <button>Modifier</button></td>
-        </tr>
-    <?php } 
-    ?> </table>
+        <table id="tab" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th><b>Titre</b></th>
+                    <th><b>Date de publication</b></th>
+                    <th><b>Opérations</b></th>
+                </tr> 
+            </thead>    
+
+            <tbody>
+                <?php foreach($articles as $article) { ?>
+                    <tr>
+                        <td><?= $article->getTitre() ?></td>
+                        <td> <?= $article->getDateCreation() ?> </td>
+                        <td>
+                            <a href="" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
+                            <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
+                            <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                        </td>
+                    </tr>
+                <?php } ?> 
+        </tbody>
+    </table>
 <?php } ?>
 </div>
 
@@ -46,3 +55,9 @@ td, th
 require_once('../Views/User/layoutMembre.php');
 
 ?>
+
+<script>
+    $(document).ready(function() {
+        $('#tab').DataTable()
+    })
+</script>

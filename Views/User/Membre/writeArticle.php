@@ -15,29 +15,44 @@ ob_start();
     <form action="index.php?action=storeWrittedArticle" method="POST">
         <fieldset>
         <legend><h3>Rédaction d'un article</h3></legend>
-            <table>
-                <tr>
-                    <td> <label for="titre">Titre</label> </td>
-                    <td> <input type="text" name="titre" id="titre" placeholder="Le titre de l'article"/> </td>
-                </tr>
-                <tr>
-                    <td> <label for="contenu">Contenu</label> </td>
-                    <td> <textarea name="contenu" id="contenu" cols="50" rows="10">Le contenu de l'article</textarea> </td>
-                </tr>
-                <tr>
-                    <td><label for="categorie">Categorie</label></td>
-                    <td>
-                        <select name="categorie" id="categorie">
-                            <?php foreach(SessionManager::get('categories') as $categorie) { ?>
-                                <option value="<?= $categorie->getId()?>"> <?= $categorie->getLibelle() ?> </option>
-                            <?php } ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td> <input type="submit" value="Publier"> <button id="cancel">Annuler</button> </td>
-                </tr>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="titre" class="col-lg-3">Titre</label>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" name="titre" id="titre" placeholder="Le titre de l'article"/>
+                        </div>
+                    </div> 
+                </div>
+                    <br>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="contenu" class="col-lg-3">Contenu</label> 
+                        <div class="col-lg-8">
+                            <textarea name="contenu" class="form-control" id="contenu" cols="70" rows="10">Le contenu de l'article</textarea>
+                        </div>
+                    </div> 
+                </div>
+                    <br>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="categorie" class="col-lg-3">Categorie</label>
+                        <div class="col-lg-6">
+                            <select name="categorie" id="categorie">
+                                <?php foreach(SessionManager::get('categories') as $categorie) { ?>
+                                    <option value="<?= $categorie->getId()?>" class="form-control"> <?= $categorie->getLibelle() ?> </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div> 
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-6">
+                        <input type="submit" value="Publier" class="btn btn-success"/>
+                    </div>
+                </div>
             </table>
         </fieldset>
     </form>
