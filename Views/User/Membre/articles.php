@@ -28,9 +28,9 @@ ob_start();
                         <td><?= $article->getTitre() ?></td>
                         <td> <?= $article->getDateCreation() ?> </td>
                         <td>
-                            <a href="" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
-                            <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
-                            <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                            <a href="index.php?action=details&id=<?= $article->getId() ?>" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
+                            <a href="index.php?action=editArticle&id=<?= $article->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
+                            <a href="index.php?action=removeArticle&id=<?= $article->getId() ?>" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
                         </td>
                     </tr>
                 <?php } ?> 
@@ -38,17 +38,6 @@ ob_start();
     </table>
 <?php } ?>
 </div>
-
-<style>
- table 
- {
-    border-collapse: collapse; 
- }
-td, th
-{
-    border: 1px solid black;
-}
-</style>
 
 <?php $content = ob_get_clean(); 
 
@@ -60,4 +49,13 @@ require_once('../Views/User/layoutMembre.php');
     $(document).ready(function() {
         $('#tab').DataTable()
     })
+
+    var articles = document.getElementsByClassName('sup')
+    for(var i = 0; i < articles.length; i++)
+    {
+        articles[i].addEventListener('click', function(event){
+            if(!confirm('Voulez vous vraiment supprimer cet article ?'))
+                event.preventDefault()
+        })
+    }
 </script>

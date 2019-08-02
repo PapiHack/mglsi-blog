@@ -18,11 +18,7 @@
  $blogController = new BlogController;
  $authController = new AuthController;
 
- if(isset($_GET['id']))
- {
-     $blogController->article();
- }
- else if(isset($_GET['categorie']))
+ if(isset($_GET['categorie']))
  {
      $blogController->articleByCategory();
  }
@@ -57,6 +53,38 @@
         case 'addCategorie': $authController->addCategorie();
                             break;
         case 'storeCategorie': $authController->storeCategorie();
+                            break;
+        case 'details': if(isset($_GET['id']))
+                            $blogController->article();
+                        break;
+        case 'editArticle': if(isset($_GET['id']))
+                                $authController->editArticle();
+                            break;
+        case 'removeArticle': if(isset($_GET['id']))
+                                $authController->removeArticle();
+                            break;
+        case 'updateArticle': $authController->updateArticle();
+                            break;
+        case 'editCategorie': if(isset($_GET['id']))
+                                $authController->editCategorie();
+                            break;
+        case 'removeCategorie': if(isset($_GET['id']))
+                                $authController->removeCategorie();
+                            break;
+        case 'updateCategorie': $authController->updateCategorie();
+                            break;
+        case 'addAdmin': SessionManager::set('add', 'admin');
+                            $authController->addUser();
+                            break;
+        case 'addEditor': SessionManager::set('add', 'user');
+                        $authController->addUser();
+                            break;
+        case 'removeUser': if(isset($_GET['id']))
+                                $authController->removeUser();
+                        break;
+        case 'editUser': $authController->editUser();
+                        break;
+        case 'updateUser': $authController->updateUser();
                             break;
         default : $blogController->index();
                         break;

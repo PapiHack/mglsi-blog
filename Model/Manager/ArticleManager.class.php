@@ -74,13 +74,14 @@ class ArticleManager
 
     public function update(Article $article)
     {
-        $request = $this->db->prepare('UPDATE Article SET contenu = :contenu, categorie = :categorie, titre = :titre,
-                                    dateModification = NOW() WHERE id = :id');
+        $request = $this->db->prepare('UPDATE Article SET contenu = :contenu, categorie = :categorie, titre = :titre, dateModification = :dateM WHERE id = :id');
         
         return $request->execute([
             'titre'     => $article->getTitre(),
             'contenu'   => $article->getContenu(),
             'categorie' => $article->getCategorie(),
+            'id'        => $article->getId(),
+            'dateM'     => (new DateTime())->format('Y-m-d H:i:s'),
         ]);
     }
 

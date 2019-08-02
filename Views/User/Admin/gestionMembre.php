@@ -8,7 +8,7 @@ ob_start();
 
 <div id="contenu">
 <h1>Liste des membres</h1>
-<p style="font-size: 1.5em;"><a href="index.php?action=connexion" class="btn btn-success"><i class="fa fa-user-plus"></i> Ajouter un nouveau membre</a></p>
+<p style="font-size: 1.5em;"><a href="index.php?action=addEditor" class="btn btn-success"><i class="fa fa-user-plus"></i> Ajouter un nouveau membre</a></p>
     <br>
     <?php if(empty($membres)){ ?>
     <h2>Pas encore de membre(s).</h2>
@@ -31,9 +31,8 @@ ob_start();
                         <?php $userAuth = $this->authManager->getAuthByUser($membre->getId());  ?>
                         <td><?= $userAuth->getLogin() ?></td>
                         <td>
-                            <a href="" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
-                            <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
-                            <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                            <a href="index.php?action=editUser&id=<?= $membre->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
+                            <a href="index.php?action=removeUser&id=<?= $membre->getId() ?>" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
                         </td>
                     </tr>
                 <?php } ?> 

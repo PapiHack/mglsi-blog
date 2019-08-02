@@ -1,6 +1,6 @@
 <?php $title = 'Inscription MGLSI NEWS'; 
 
-$entete = 'Inscription à M1GLSI - NEWS';
+$entete = SessionManager::get('user')->getStatut() === 'user' ? 'Mon espace perso' : 'Espace Admin';
 
 ob_start();
 
@@ -16,12 +16,13 @@ ob_start();
         <h3 style="color: green;"> <?= $success?> </h3>
     </div>
 <?php } ?>
+
     <form action="index.php?action=register" class="form-vertical" method="POST">
         <div class="form-group">
-            <legend>Inscription à l'édition</legend>
+            <legend>Ajout d'un <?= SessionManager::get('add') == 'admin' ? 'admin' : 'éditeur' ?></legend>
         </div>
 
-        <input type="hidden" name="statut" value="user"/>
+        <input type="hidden" name="statut" value="<?= SessionManager::get('add') == 'admin' ? 'admin' : 'user'?>"/>
 
         <div class="row">
             <div class="form-group">
@@ -79,7 +80,7 @@ ob_start();
 
         <div class="form-group">
             <div class="col-lg-offset-4 col-lg-4">
-                <input type="submit" value="Se connecter" class="btn btn-success"> <button id="cancel" class="btn btn-danger">Annuler</button>
+                <input type="submit" value="Validez" class="btn btn-success"> <button id="cancel" class="btn btn-danger">Annuler</button>
             </div>
         </div>
     </form>
@@ -94,8 +95,15 @@ ob_start();
 
 <?php
 
-$content = ob_get_clean(); 
+$content = ob_get_clean();
 
-require_once('../Views/layout.php');
+if(SessionManager::get('user')->getStatut() === 'user')
+{
+    require_once('../Views/User/layoutMembre.php'); 
+}
+else
+{
+    require_once('../Views/User/layoutAdmin.php');
+}
 
 ?>

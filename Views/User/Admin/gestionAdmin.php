@@ -8,7 +8,7 @@ ob_start();
 
 <div id="contenu">
 <h1>Liste des admins</h1>
-<p style="font-size: 1.5em;"><a href="index.php?action=connexion" class="btn btn-success"><i class="fa fa-user-plus"></i> Ajouter un nouveau admin</a></p>
+<p style="font-size: 1.5em;"><a href="index.php?action=addAdmin" class="btn btn-success"><i class="fa fa-user-plus"></i> Ajouter un nouveau admin</a></p>
     <?php if(empty($admins)) { ?>
     <h2>Pas encore d'admin(s).</h2>
     <?php } else { ?>
@@ -30,9 +30,8 @@ ob_start();
                     <?php $userAuth = $this->authManager->getAuthByUser($admin->getId());  ?>
                     <td><?= $userAuth->getLogin() ?></td>
                     <td>
-                        <a href="" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
-                        <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
-                        <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                        <a href="index.php?action=editUser&id=<?= $admin->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
+                        <a href="index.php?action=removeUser&id=<?= $admin->getId() ?>" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
                     </td>
                 </tr>
                 <?php } ?> 

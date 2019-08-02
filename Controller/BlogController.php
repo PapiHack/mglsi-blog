@@ -19,11 +19,13 @@ class BlogController
     private $categorieManager;
     private $allArticles;
     private $allCategories;
+    private $userManager;
 
     public function __construct()
     {
         SessionManager::start();
         $this->connexion = Connexion::getConnexion();
+        $this->userManager = new UserManager($this->connexion);
         $this->articleManager = new ArticleManager($this->connexion);
         $this->categorieManager = new CategorieManager($this->connexion);
         $this->allArticles = $this->articleManager->getAll();

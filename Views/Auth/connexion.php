@@ -14,7 +14,7 @@ ob_start();
     </div>
 
     <?php }  ?>
-    <form action="index.php?action=login" method="POST" class="form-vertical" align="center">
+    <form action="index.php?action=login" method="POST" class="form-vertical">
         <div class="form-group">
             <legend>Authentification</legend>
         </div>

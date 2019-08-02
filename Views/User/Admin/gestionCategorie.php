@@ -28,9 +28,8 @@ ob_start();
                     <td><?= $categorie->getId() ?></td>
                     <td><?= $categorie->getLibelle() ?></td>
                     <td>
-                        <a href="" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
-                        <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
-                        <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                        <a href="index.php?action=editCategorie&id=<?= $categorie->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
+                        <a href="index.php?action=removeCategorie&id=<?= $categorie->getId() ?>" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
                     </td>
                 </tr>
             <?php } ?> 
@@ -49,4 +48,13 @@ require_once('../Views/User/layoutAdmin.php');
     $(document).ready(function(){
         $('#tab').DataTable()
     })
+
+    var categories = document.getElementsByClassName('sup')
+    for(var i = 0; i < categories.length; i++)
+    {
+        categories[i].addEventListener('click', function(event){
+            if(!confirm('Voulez vous vraiment supprimer cet article ?'))
+                event.preventDefault()
+        })
+    }
 </script>

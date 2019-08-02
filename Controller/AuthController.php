@@ -197,7 +197,6 @@ class AuthController
 
     public function storeCategorie()
     {
-
         if(SessionManager::get('user'))
         {
             $response = $this->validationService->categorieValidation($_POST);
@@ -212,6 +211,114 @@ class AuthController
                 $error = $response;
                 require_once('../Views/User/Admin/addCategorie.php');
             }
+        }
+        else
+            $this->connexion();
+    }
+
+    public function editArticle()
+    {
+        if(SessionManager::get('user'))
+        {
+            $article = $this->articleManager->get($_GET['id']);
+            $categories = (new CategorieManager($this->connexion))->getAll();
+            SessionManager::set('categories', $categories);
+            require_once('../Views/User/Membre/writeArticle.php');
+        }
+        else
+            $this->connexion();
+    }
+
+    public function updateArticle()
+    {
+        if(SessionManager::get('user'))
+        {
+            $response = $this->validationService->articleValidation($_POST);
+            $article = $this->articleManager->get($_POST['id_article']);
+
+            if($response === true)
+            {
+                $article->setTitre($_POST['titre']);
+                $article->setContenu($_POST['contenu']);
+                $article->setCategorie($_POST['categorie']);
+                $article->setAuteur(SessionManager::get('user')->getId());
+                $this->articleManager->update($article);
+                $success = 'Votre article a bien été mis à jour !';
+                require_once('../Views/User/Membre/writeArticle.php');
+            }
+            else
+            {
+                $error = $response;
+                require_once('../Views/User/Membre/writeArticle.php');
+            }
+        }
+        else
+            $this->connexion();
+    }
+
+    public function removeArticle()
+    {
+        if(SessionManager::get('user'))
+        {
+            $article = $this->articleManager->get($_GET['id']);
+            $this->articleManager->remove($article);
+            $this->gestionArticle();
+        }
+        else
+            $this->connexion();
+    }
+
+    public function editCategorie()
+    {
+        if(SessionManager::get('user'))
+        {
+            $categorie = $this->categorieManager->get($_GET['id']);
+            require_once('../Views/User/Admin/addCategorie.php');
+        }
+        else
+            $this->connexion();
+    }
+
+    public function updateCategorie()
+    {
+        if(SessionManager::get('user'))
+        {
+            $response = $this->validationService->categorieValidation($_POST);
+            $categorie = $this->categorieManager->get($_POST['id_categorie']);
+            if($response === true)
+            {
+                $categorie->setLibelle($_POST['libelle']);
+                $this->categorieManager->update($categorie);
+                $success = 'Votre catégorie a bien été mise à jour !';
+                require_once('../Views/User/Admin/addCategorie.php');
+            }
+            else
+            {
+                $error = $response;
+                require_once('../Views/User/Admin/addCategorie.php');
+            }
+        }
+        else
+            $this->connexion();
+    }
+
+    public function removeCategorie()
+    {
+        if(SessionManager::get('user'))
+        {
+            $categorie = $this->categorieManager->get($_GET['id']);
+            $this->categorieManager->remove($categorie);
+            $this->gestionCategorie();
+        }
+        else
+            $this->connexion();
+    }
+
+    public function addUser()
+    {
+        if(SessionManager::get('user'))
+        {
+            require_once('../Views/User/Admin/user.php');
         }
         else
             $this->connexion();
