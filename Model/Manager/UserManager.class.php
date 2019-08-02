@@ -90,14 +90,16 @@ class UserManager
 
     public function pseudo_exist($login)
     {
+
         $request = $this->db->prepare('SELECT * FROM Auth WHERE login = :login');
         $request->execute(['login' => $login]);
-
+        
         return count($request->fetchAll());
     }
 
     public function mail_exist($mail)
     {
+
         $request = $this->db->prepare('SELECT * FROM User WHERE mail = :mail');
         $request->execute(['mail' => $mail]);
 

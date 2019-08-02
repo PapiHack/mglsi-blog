@@ -19,7 +19,7 @@ ob_start();
 
     <form <?php if(isset($user)){ ?> action="index.php?action=updateUser&id=<?= $user->getId() ?>" <?php } ?> action="index.php?action=register" class="form-vertical" method="POST">
         <div class="form-group">
-            <legend><?= $user ? 'Edition' : 'Ajout' ?> d'un <?= SessionManager::get('add') == 'admin' ? 'admin' : 'éditeur' ?></legend>
+            <legend><?= isset($user) ? 'Edition' : 'Ajout' ?> d'un <?= SessionManager::get('add') == 'admin' ? 'admin' : 'éditeur' ?></legend>
         </div>
 
         <input type="hidden" name="statut" value="<?= SessionManager::get('add') == 'admin' ? 'admin' : 'user'?>"/>
