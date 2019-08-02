@@ -262,7 +262,7 @@ class AuthController
         {
             $article = $this->articleManager->get($_GET['id']);
             $this->articleManager->remove($article);
-            $this->gestionArticle();
+            SessionManager::get('user')->getStatut() == 'admin' ? $this->gestionArticle() : $this->getMemberArticles();
         }
         else
             $this->connexion();
