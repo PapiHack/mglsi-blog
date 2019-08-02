@@ -74,11 +74,12 @@ class AuthManager
     public function update(Auth $auth)
     {
         $request = $this->db->prepare('UPDATE Auth SET idUser = :idUser, login = :login, mdp = :mdp WHERE id = :id');
-
+        
         return $request->execute([
             'idUser' => $auth->getIdUser(),
             'login'  => $auth->getLogin(),
-            'mdp'    => $auth->getMdp()
+            'mdp'    => $auth->getMdp(),
+            'id'     => $auth->getId()
         ]);
     }
     

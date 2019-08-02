@@ -58,7 +58,7 @@ class AuthController
             $this->authManager->add(new Auth(['idUser' => $idUser, 'login' => $_POST['pseudo'], 'mdp' => $_POST['mdp']]));
             $success = 'Votre inscription a bien été prise en compte !';
         }
-        require_once('../Views/Auth/inscription.php');
+        SessionManager::get('add') ? require_once('../Views/User/Admin/user.php') : require_once('../Views/Auth/inscription.php');
     }
 
     public function login()
@@ -319,6 +319,60 @@ class AuthController
         if(SessionManager::get('user'))
         {
             require_once('../Views/User/Admin/user.php');
+        }
+        else
+            $this->connexion();
+    }
+
+    public function editUser()
+    {
+        if(SessionManager::get('user'))
+        {
+            $user = $this->userManager->get($_GET['id']);
+            $auth = $this->authManager->getAuthByUser($_GET['id']);
+            require_once('../Views/User/Admin/user.php');
+        }
+        else
+            $this->connexion();
+    }
+
+    public function updateUser()
+    {
+        $registerValid = $this->validationService->registerValidation($_POST);
+        $user = $this->userManager->get($_GET['id']);
+        $auth = $this->authManager->getAuthByUser($_GET['id']);
+
+        if(SessionManager::get('user'))
+        {
+            if($registerValid === true)
+            {
+                $user->setNom($_POST['nom']); $user->setPrenom($_POST['prenom']);
+                $auth->setLogin($_POST['pseudo']); $user->setMail($_POST['mail']);
+                $auth->setMdp($_POST['mdp']);
+                $this->userManager->update($user);
+                $this->authManager->update($auth);
+                $success = 'Utilisateur mis à jour !';
+                require_once('../Views/User/Admin/user.php');
+            }
+            else
+            {
+                $error = $registerValid;
+                require_once('../Views/User/Admin/user.php');
+            }  
+        }
+        else
+            $this->connexion();
+    }
+
+    public function removeUser()
+    {
+        if(SessionManager::get('user'))
+        {
+            $user = $this->userManager->get($_GET['id']);
+            $auth = $this->authManager->getAuthByUser($_GET['id']);
+            $this->authManager->remove($auth);
+            $this->userManager->remove($user);
+            $_GET['action'] == 'removeAdmin' ? $this->gestionAdmin() : $this->gestionMembre();
         }
         else
             $this->connexion();

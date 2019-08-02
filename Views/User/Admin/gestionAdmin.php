@@ -30,8 +30,8 @@ ob_start();
                     <?php $userAuth = $this->authManager->getAuthByUser($admin->getId());  ?>
                     <td><?= $userAuth->getLogin() ?></td>
                     <td>
-                        <a href="index.php?action=editUser&id=<?= $admin->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
-                        <a href="index.php?action=removeUser&id=<?= $admin->getId() ?>" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                        <a href="index.php?action=editAdmin&id=<?= $admin->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
+                        <a href="index.php?action=removeAdmin&id=<?= $admin->getId() ?>" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
                     </td>
                 </tr>
                 <?php } ?> 
@@ -50,4 +50,13 @@ require_once('../Views/User/layoutAdmin.php');
     $(document).ready(function() {
         $('#tab').DataTable()
     })
+
+    var admins = document.getElementsByClassName('sup')
+    for(var i = 0; i < admins.length; i++)
+    {
+        admins[i].addEventListener('click', function(event){
+            if(!confirm('Voulez vous vraiment supprimer cet administrateur ?'))
+                event.preventDefault()
+        })
+    }
 </script>

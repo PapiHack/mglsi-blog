@@ -76,14 +76,15 @@ class UserManager
 
     public function update(User $user)
     {
-        $request = $this->db->prepare('UPDATE User SET nom = : nom, prenom = :prenom,
-                         mail = :mail, statut = :statut');
+        $request = $this->db->prepare('UPDATE User SET nom = :nom, prenom = :prenom,
+                         mail = :mail, statut = :statut WHERE id = :id');
         
         return $request->execute([
             'nom'    => $user->getNom(),
             'prenom' => $user->getPrenom(),
             'mail'   => $user->getMail(),
-            'statut' => $user->getStatut()
+            'statut' => $user->getStatut(),
+            'id'     => $user->getId()
         ]);
     }
 

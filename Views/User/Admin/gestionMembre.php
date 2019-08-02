@@ -31,8 +31,8 @@ ob_start();
                         <?php $userAuth = $this->authManager->getAuthByUser($membre->getId());  ?>
                         <td><?= $userAuth->getLogin() ?></td>
                         <td>
-                            <a href="index.php?action=editUser&id=<?= $membre->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
-                            <a href="index.php?action=removeUser&id=<?= $membre->getId() ?>" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                            <a href="index.php?action=editEditor&id=<?= $membre->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
+                            <a href="index.php?action=removeEditor&id=<?= $membre->getId() ?>" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
                         </td>
                     </tr>
                 <?php } ?> 
@@ -51,4 +51,13 @@ require_once('../Views/User/layoutAdmin.php');
     $(document).ready(function (){
         $('#tab').DataTable()
     })
+
+    var editors = document.getElementsByClassName('sup')
+    for(var i = 0; i < editors.length; i++)
+    {
+        editors[i].addEventListener('click', function(event){
+            if(!confirm('Voulez vous vraiment supprimer cet éditeur ?'))
+                event.preventDefault()
+        })
+    }
 </script>

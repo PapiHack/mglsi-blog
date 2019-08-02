@@ -79,13 +79,21 @@
         case 'addEditor': SessionManager::set('add', 'user');
                         $authController->addUser();
                             break;
-        case 'removeUser': if(isset($_GET['id']))
+        case 'removeAdmin': if(isset($_GET['id']))
                                 $authController->removeUser();
                         break;
-        case 'editUser': $authController->editUser();
-                        break;
-        case 'updateUser': $authController->updateUser();
+        case 'removeEditor': if(isset($_GET['id']))
+                                $authController->removeUser();
                             break;
+        case 'editAdmin': SessionManager::set('add', 'admin'); 
+                         $authController->editUser();
+                        break;
+        case 'editEditor': SessionManager::set('add', 'user'); 
+                                         $authController->editUser();
+                                        break;
+        case 'updateUser': if(isset($_GET['id']))
+                                $authController->updateUser();
+                           break;
         default : $blogController->index();
                         break;
         
