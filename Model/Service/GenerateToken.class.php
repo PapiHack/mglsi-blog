@@ -2,6 +2,8 @@
 
 /**
  *
+ * @author alioune
+ * @since 02/08/19
  */
 class GenerateToken
 {
