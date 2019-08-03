@@ -1,4 +1,4 @@
-<?php $title = 'Mon espace perso'; 
+<?php $title = 'Mon espace perso';
 
 $entete = 'Espace Admin';
 
@@ -8,7 +8,7 @@ ob_start();
 
 <div id="contenu">
 <h1>Liste des admins</h1>
-<p style="font-size: 1.5em;"><a href="index.php?action=connexion" class="btn btn-success"><i class="fa fa-user-plus"></i> Ajouter un nouveau admin</a></p>
+<p style="font-size: 1.5em;"><a href="<?= URI?>connexion" class="btn btn-success"><i class="fa fa-user-plus"></i> Ajouter un nouveau admin</a></p>
     <?php if(empty($admins)) { ?>
     <h2>Pas encore d'admin(s).</h2>
     <?php } else { ?>
@@ -19,10 +19,10 @@ ob_start();
                     <th><b>Mail</b></th>
                     <th><b>Pseudo</b></th>
                     <th><b>Opérations</b></th>
-                </tr> 
-            </thead> 
+                </tr>
+            </thead>
 
-            <tbody>   
+            <tbody>
             <?php foreach($admins as $admin) { ?>
                 <tr>
                     <td><?= $admin->getPrenom().' '.$admin->getNom() ?></td>
@@ -31,17 +31,17 @@ ob_start();
                     <td><?= $userAuth->getLogin() ?></td>
                     <td>
                         <a href="" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
-                        <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
-                        <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                        <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
+                        <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
-                <?php } ?> 
+                <?php } ?>
         </tbody>
     </table>
 <?php } ?>
 </div>
 
-<?php $content = ob_get_clean(); 
+<?php $content = ob_get_clean();
 
 require_once('../Views/User/layoutAdmin.php');
 

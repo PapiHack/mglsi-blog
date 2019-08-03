@@ -1,4 +1,4 @@
-<?php $title = 'Mon espace perso'; 
+<?php $title = 'Mon espace perso';
 
 $entete = 'Mon espace perso';
 
@@ -8,7 +8,7 @@ ob_start();
 
 <div id="contenu">
 <h1>Liste de mes articles</h1>
-<p style="font-size: 1.5em;"><a href="index.php?action=writeArticle" class="btn btn-success"><i class="fa fa-edit"></i>  Ecrire un nouvel article</a></p>
+<p style="font-size: 1.5em;"><a href="<?= URI?>writeArticle" class="btn btn-success"><i class="fa fa-edit"></i>  Ecrire un nouvel article</a></p>
     <br>
     <?php if(empty($articles)){ ?>
     <h2>Vous n'avez pas encore d'article(s).</h2>
@@ -19,8 +19,8 @@ ob_start();
                     <th><b>Titre</b></th>
                     <th><b>Date de publication</b></th>
                     <th><b>Opérations</b></th>
-                </tr> 
-            </thead>    
+                </tr>
+            </thead>
 
             <tbody>
                 <?php foreach($articles as $article) { ?>
@@ -29,20 +29,20 @@ ob_start();
                         <td> <?= $article->getDateCreation() ?> </td>
                         <td>
                             <a href="" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
-                            <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>             
-                            <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>             
+                            <a href="" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
+                            <a href="" class="btn btn-danger sup" title="Supprimer"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
-                <?php } ?> 
+                <?php } ?>
         </tbody>
     </table>
 <?php } ?>
 </div>
 
 <style>
- table 
+ table
  {
-    border-collapse: collapse; 
+    border-collapse: collapse;
  }
 td, th
 {
@@ -50,7 +50,7 @@ td, th
 }
 </style>
 
-<?php $content = ob_get_clean(); 
+<?php $content = ob_get_clean();
 
 require_once('../Views/User/layoutMembre.php');
 

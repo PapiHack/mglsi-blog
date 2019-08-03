@@ -1,4 +1,4 @@
-<?php $title = 'Login MGLSI NEWS'; 
+<?php $title = 'Login MGLSI NEWS';
 
 $entete = 'Inscription à M1GLSI - NEWS';
 
@@ -16,7 +16,7 @@ ob_start();
         <h3 style="color: green;"> <?= $success?> </h3>
     </div>
 <?php } ?>
-    <form action="index.php?action=register" method="POST">
+    <form action="<?= URI?>register" method="POST">
         <table>
             <tr>
                 <td> <label for="nom">Nom</label> </td>
@@ -51,16 +51,16 @@ ob_start();
     </form>
 </div>
 
-<script>
+<!-- <script>
     document.getElementById('cancel').addEventListener('click', function(event){
         event.preventDefault()
         window.location.replace('http://localhost/mglsi_news/public/index.php')
     })
-</script>
+</script> -->
 
 <?php
 
-$content = ob_get_clean(); 
+$content = ob_get_clean();
 
 require_once('../Views/layout.php');
 

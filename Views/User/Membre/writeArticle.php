@@ -1,4 +1,4 @@
-<?php $title = 'Mon espace perso'; 
+<?php $title = 'Mon espace perso';
 
 $entete = SessionManager::get('user')->getStatut() === 'user' ? 'Mon espace perso' : 'Espace Admin';
 
@@ -12,7 +12,7 @@ ob_start();
 <?php } else if(isset($success)) { ?>
     <h3 style="color: green"> <?= $success ?> </h3>
 <?php } ?>
-    <form action="index.php?action=storeWrittedArticle" method="POST">
+    <form action="<?= URI?>storeWrittedArticle" method="POST">
         <fieldset>
         <legend><h3>Rédaction d'un article</h3></legend>
 
@@ -22,16 +22,16 @@ ob_start();
                         <div class="col-lg-6">
                             <input type="text" class="form-control" name="titre" id="titre" placeholder="Le titre de l'article"/>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                     <br>
                 <div class="row">
                     <div class="form-group">
-                        <label for="contenu" class="col-lg-3">Contenu</label> 
+                        <label for="contenu" class="col-lg-3">Contenu</label>
                         <div class="col-lg-8">
                             <textarea name="contenu" class="form-control" id="contenu" cols="70" rows="10">Le contenu de l'article</textarea>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                     <br>
                 <div class="row">
@@ -44,7 +44,7 @@ ob_start();
                                 <?php } ?>
                             </select>
                         </div>
-                    </div> 
+                    </div>
                 </div>
 
                 <br>
@@ -58,18 +58,18 @@ ob_start();
     </form>
 </div>
 
-<script>
+<!-- <script>
     document.getElementById('cancel').addEventListener('click', function(event){
         event.preventDefault()
         window.location.replace('http://localhost/mglsi_news/public/index.php?action=login')
     })
-</script>
+</script> -->
 
-<?php $content = ob_get_clean(); 
+<?php $content = ob_get_clean();
 
 if(SessionManager::get('user')->getStatut() === 'user')
 {
-    require_once('../Views/User/layoutMembre.php'); 
+    require_once('../Views/User/layoutMembre.php');
 }
 else
 {
