@@ -27,7 +27,7 @@
  $router->get('/categorie/:id','BlogController@articleByCategory');
  $router->get('/article/:id','BlogController@articleById');
 
-
+// GET Request
  $router->get('/inscription','AuthController@inscription');
  $router->get('/connexion','AuthController@connexion');
  $router->get('/login','AuthController@login');
@@ -40,6 +40,7 @@
  $router->get('/addCategorie','AuthController@addCategorie');
  $router->get('/gestionCategorie','AuthController@gestionCategorie');
 
+//POST Request
  $router->post('/register','AuthController@register');
  $router->post('/login','AuthController@login');
  $router->post('/writeArticle','AuthController@writeArticle');
