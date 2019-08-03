@@ -13,9 +13,11 @@ ob_start();
         else
             foreach ($this->allArticles as $article)
             {?>
-                <div class="article">
-                    <h1><a href="index.php?action=details&id=<?= $article->getId() ?>"><?= utf8_encode($article->getTitre()) ?></a></h1>
-                    <p><?= substr($article->getContenu(), 0, 300) . '...' ?></p>
+                <div class="row">
+                    <article class="article">
+                        <h1><a href="index.php?action=details&id=<?= $article->getId() ?>"><?= utf8_encode($article->getTitre()) ?></a></h1>
+                        <p><?= substr($article->getContenu(), 0, 300) . '...' ?></p>
+                    </article>
                 </div><?php
             }
     ?>

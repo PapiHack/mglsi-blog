@@ -38,6 +38,31 @@
 {
 	margin: 10px;
 	padding: 10px;
+	border-radius: 10px;
 	border:3px double black;
 	background-color: rgba(0, 255, 0, 0.1);
+	box-shadow: 0 16px 38px -12px rgba(0,0,0,0.56),0 4px 25px 0 rgba(0,0,0,0.12),0 8px 10px -5px rgba(0,0,0,0.2);
+	z-index: 999;
+}
+
+.main {
+    position: relative;
+    background: #fff;
+}
+
+.main-raised {
+    margin: -60px 30px 0;
+    border-radius: 6px 6px 0 0;
+    -webkit-box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14),0 6px 30px 5px rgba(0,0,0,0.12),0 8px 10px -5px rgba(0,0,0,0.2);
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14),0 6px 30px 5px rgba(0,0,0,0.12),0 8px 10px -5px rgba(0,0,0,0.2);
+}
+
+.main-raised {
+    margin: -60px 15px 0;
+}
+
+body:not(.home) .wrapper .main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
 }
