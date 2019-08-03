@@ -47,7 +47,7 @@ class Route
       return '('.$this->params[$match[1]].')';
     }
 
-    return '([^\]+)';
+    return '([^/]+)';
   }
 
   public function call()
