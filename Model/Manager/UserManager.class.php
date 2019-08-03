@@ -91,6 +91,21 @@ class UserManager
     public function pseudo_exist($login)
     {
 
+        if($_GET['action'] == 'updateUser')
+        {
+            $authManager = new AuthManager(Connexion::getConnexion());
+            $auths = $authManager->getAll();
+            $_auth = $authManager->get($_GET['id']);
+            $pseudoExist = 0;
+
+            foreach($auths as $auth)
+            {
+                if($auth->getLogin() == $login && $auth != $_auth)
+                    $pseudoExist++;
+            }
+            return $pseudoExist; 
+        }
+
         $request = $this->db->prepare('SELECT * FROM Auth WHERE login = :login');
         $request->execute(['login' => $login]);
         
@@ -99,6 +114,20 @@ class UserManager
 
     public function mail_exist($mail)
     {
+
+        if($_GET['action'] == 'updateUser')
+        {
+            $users = $this->getAll();
+            $_user = $this->get($_GET['id']); 
+            $mailExist = 0;
+
+            foreach($users as $user)
+            {
+                if($user->getMail() == $mail && $user != $_user)
+                    $mailExist++;
+            }
+            return $mailExist; 
+        }
 
         $request = $this->db->prepare('SELECT * FROM User WHERE mail = :mail');
         $request->execute(['mail' => $mail]);

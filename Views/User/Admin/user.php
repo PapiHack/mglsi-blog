@@ -80,18 +80,13 @@ ob_start();
 
         <div class="form-group">
             <div class="col-lg-offset-4 col-lg-4">
-                <input type="submit" value="Validez" class="btn btn-success"> <button id="cancel" class="btn btn-danger">Annuler</button>
+                <input type="submit" value="Validez" class="btn btn-success">
+                <?php if($_GET['action'] == 'editAdmin' || $_GET['action'] == 'addAdmin'){ ?> <a href="index.php?action=gestionAdmin" class="btn btn-danger">Annuler</a>
+                <?php } else { ?> <a href="index.php?action=gestionMembre" class="btn btn-danger">Annuler</a> <?php } ?>
             </div>
         </div>
     </form>
 </div>
-
-<script>
-    document.getElementById('cancel').addEventListener('click', function(event){
-        event.preventDefault()
-        window.location.replace('http://localhost/mglsi_news/public/index.php')
-    })
-</script>
 
 <?php
 
