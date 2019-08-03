@@ -19,6 +19,8 @@ class AuthController
     private $validationService;
     private $articleManager;
     private $categorieManager;
+    private $tokenManager;
+    private $tokenGenerator;
 
     public function __construct()
     {
@@ -28,6 +30,8 @@ class AuthController
         $this->categorieManager = new CategorieManager($this->connexion);  
         $this->authManager = new AuthManager($this->connexion);  
         $this->userManager = new UserManager($this->connexion);
+        $this->tokenManager = new TokenManager($this->connexion);
+        $this->tokenGenerator = new TokenGenerator($this->tokenManager->getAll());
         $this->validationService = new Validation($this->authManager, $this->userManager, $this->categorieManager);
     }
 
@@ -56,7 +60,13 @@ class AuthController
             $nbUsers = count($this->userManager->getAll());
             $idUser = $nbUsers == 0 ? 1 : $this->userManager->getAll()[$nbUsers - 1]->getId();
             $this->authManager->add(new Auth(['idUser' => $idUser, 'login' => $_POST['pseudo'], 'mdp' => $_POST['mdp']]));
-            $success = 'Votre inscription a bien été prise en compte !';
+            
+            if($_POST['statut'] == 'admin')
+                    $success = 'Admin ajouté !';
+            else if($_POST['statut'] == 'user')
+                    $success = 'Editeur ajouté !';
+            else
+                $success = 'Votre inscription a bien été prise en compte !';
         }
         SessionManager::get('add') ? require_once('../Views/User/Admin/user.php') : require_once('../Views/Auth/inscription.php');
     }
@@ -164,6 +174,7 @@ class AuthController
     {
         if(SessionManager::get('user'))
         {
+            $tokens = $this->tokenManager->getAll();
             $allAdmins = $this->userManager->getAllAdmins();
             $admins = array_filter($allAdmins, function($admin){
                 return $admin != SessionManager::get('user');
@@ -376,5 +387,36 @@ class AuthController
         }
         else
             $this->connexion();
+    }
+
+    public function generateToken()
+    {
+        if(SessionManager::get('user'))
+        {
+            $user = $this->userManager->get($_GET['id']);
+
+            $token = new Token([
+                'idUser' => $user->getId(),
+                'token'  => $this->tokenGenerator->getToken()
+                ]);
+
+            $this->tokenManager->add($token);
+            $this->gestionAdmin();
+        }
+        else
+            $this->connexion();
+    }
+
+    public function revokeToken()
+    {
+        if(SessionManager::get('user'))
+        {
+            $user = $this->userManager->get($_GET['id']);
+            $token = $this->tokenManager->getTokenByUser($user->getId());
+            $this->tokenManager->remove($token);
+            $this->gestionAdmin();
+        }
+        else
+            $this->connexion();  
     }
 }

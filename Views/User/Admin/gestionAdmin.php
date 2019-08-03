@@ -23,7 +23,12 @@ ob_start();
             </thead> 
 
             <tbody>   
-            <?php foreach($admins as $admin) { ?>
+            <?php foreach($admins as $admin) { 
+
+                if(!empty($tokens))
+                    $tokenAdmin = $this->tokenManager->getTokenByUser($admin->getId());
+            ?>
+
                 <tr>
                     <td><?= $admin->getPrenom().' '.$admin->getNom() ?></td>
                     <td><?= $admin->getMail() ?></td>
@@ -31,7 +36,12 @@ ob_start();
                     <td><?= $userAuth->getLogin() ?></td>
                     <td>
                         <a href="index.php?action=editAdmin&id=<?= $admin->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
-                        <button type="button" id="<?= $admin->getId() ?>" class="btn btn-danger sup"><i class="fa fa-trash"></i></button>       
+                        <button type="button" id="<?= $admin->getId() ?>" class="btn btn-danger sup"><i class="fa fa-trash"></i></button>
+                        <?php if(isset($tokenAdmin)) { ?>
+                            <a href="index.php?action=revokeToken&id=<?= $admin->getId() ?>" class="btn btn-danger"> <i class="fa fa-lock"></i>  Révoquer token</a>
+                        <?php } else { ?>
+                            <a href="index.php?action=generateToken&id=<?= $admin->getId() ?>" class="btn btn-success"> <i class="fa fa-key"></i>  Générer token</a>
+                        <?php } ?>       
                     </td>
                 </tr>
                 <?php } ?> 

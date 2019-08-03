@@ -20,6 +20,16 @@ ob_start();
     <form <?php if(isset($user)){ ?> action="index.php?action=updateUser&id=<?= $user->getId() ?>" <?php } ?> action="index.php?action=register" class="form-vertical" method="POST">
         <div class="form-group">
             <legend><?= isset($user) ? 'Edition' : 'Ajout' ?> d'un <?= SessionManager::get('add') == 'admin' ? 'admin' : 'éditeur' ?></legend>
+            <?php if(isset($user) && $user->getId() == SessionManager::get('user')->getId()) {
+                $tokenAdmin = $this->tokenManager->getTokenByUser($user->getId());
+             ?>
+                <?php if(isset($tokenAdmin)) { ?>
+                            <a href="index.php?action=revokeToken&id=<?= $user->getId() ?>" class="btn btn-danger"> <i class="fa fa-lock"></i>  Révoquer mon token</a><br>
+                        <?php } else { ?>
+                            <a href="index.php?action=generateToken&id=<?= $user->getId() ?>" class="btn btn-success"> <i class="fa fa-key"></i>  Générer mon token</a>
+                        <?php } 
+                        
+            }?> 
         </div>
 
         <input type="hidden" name="statut" value="<?= SessionManager::get('add') == 'admin' ? 'admin' : 'user'?>"/>

@@ -34,10 +34,10 @@ class Token
 
     public function setId($id)
     {
-        $this->$id = (int) $id;
+        $this->id = (int) $id;
     }
 
-    public function getUser()
+    public function getIdUser()
     {
         return $this->idUser;
     }
@@ -54,6 +54,6 @@ class Token
 
     public function setToken($token)
     {
-        $this->$token = $token;
+        $this->token = $token;
     }
 }

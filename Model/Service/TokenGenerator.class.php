@@ -14,9 +14,9 @@ class TokenGenerator
 {
     private $tokens;
 
-    public function __construct()
+    public function __construct(Array $allTokens)
     {
-        $tokens = (new TokenManager(ConnexionManager::getConnexion()))->getAll();
+        $this->tokens = $allTokens;
     }
 
     private function generateRandomString()
@@ -29,13 +29,15 @@ class TokenGenerator
             $randomString [] = $str[rand(0,64)];
         }
         return implode('', $randomString);
+        //return base64_encode(random_bytes(25));
+        //return bin2hex(random_bytes(25));
     }
 
-    private function exists($_token)
+    private function exists($tok)
     {
         foreach($this->tokens as $token)
         {
-            if($token->getToken() !== $_token)
+            if($token->getToken() === $tok)
             {
                 return true;
             }
@@ -51,7 +53,7 @@ class TokenGenerator
         {
             $token = $this->generateRandomString();
         } 
-        while (exists($token));
+        while ($this->exists($token));
 
         return $token;
     }   

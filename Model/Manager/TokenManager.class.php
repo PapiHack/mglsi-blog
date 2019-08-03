@@ -45,7 +45,11 @@ class TokenManager
 
     public function remove(Token $token)
     {
-        return $this->db->exec('DELETE FROM Token WHERE idUser = '. $token->getIdUser());
+        $request = $this->db->prepare('DELETE FROM Token WHERE id = :id');
+
+        return $request->execute([
+            'id' => $token->getId()
+        ]);
     }
 
     public function getAll()
@@ -64,13 +68,16 @@ class TokenManager
     public function getTokenByUser($idUser)
     {
         $idUser = (int) $idUser;
-        $request = $this->db->prepare('SELECT token FROM Token WHERE idUser = :idUser');
+        $request = $this->db->prepare('SELECT * FROM Token WHERE idUser = :idUser');
 
         $request->execute([
             'idUser' => $idUser
         ]);
+        
+        $data = $request->fetch(PDO::FETCH_ASSOC);
 
-        return $request->fetch(PDO::FETCH_ASSOC);
+        $token = ($data === false) ? null : new Token($data);
+        return $token;
     }
 
     public function get($id)

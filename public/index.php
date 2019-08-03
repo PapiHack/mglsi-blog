@@ -94,6 +94,12 @@
         case 'updateUser': if(isset($_GET['id']))
                                 $authController->updateUser();
                            break;
+        case 'generateToken': if(isset($_GET['id']))
+                                $authController->generateToken();
+                            break;
+        case 'revokeToken': if(isset($_GET['id']))
+                                $authController->revokeToken();
+                            break;
         default : $blogController->index();
                         break;
         
