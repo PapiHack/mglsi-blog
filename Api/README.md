@@ -1,1 +1,1 @@
-# API de mglsi_news  
+# API REST de mglsi_news  
