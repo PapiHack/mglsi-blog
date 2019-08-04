@@ -74,9 +74,9 @@ require_once('../Views/User/layoutAdmin.php');
                                 timer: 1500,
                                 })
 
-                            // setTimeout(function(){
-                            //     window.location = 'http://papihack/mglsi_news/public/index.php?action=removeCategorie&id=' + event.target.id
-                            // }, 1000)
+                            setTimeout(function(){
+                                window.location = '/mglsi-blog/removeCategorie/' + event.target.id
+                            }, 1000)
                         }
                         else
                             event.preventDefault()

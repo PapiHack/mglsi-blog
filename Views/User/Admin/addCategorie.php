@@ -35,12 +35,12 @@ ob_start();
     </form>
 </div>
 
-<!-- <script>
+<script>
     document.getElementById('cancel').addEventListener('click', function(event){
         event.preventDefault()
-        window.location.replace('http://localhost/mglsi_news/public/index.php?action=gestionCategorie')
+        window.location.replace('/mglsi-blog/gestionCategorie')
     })
-</script> -->
+</script>
 
 <?php $content = ob_get_clean();
 

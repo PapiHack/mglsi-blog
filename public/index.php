@@ -32,23 +32,45 @@
  $router->get('/connexion','AuthController@connexion');
  $router->get('/login','AuthController@login');
  $router->get('/logout','AuthController@logout');
+
  $router->get('/writeArticle','AuthController@writeArticle');
+ $router->get('/addCategorie','AuthController@addCategorie');
+ $router->get('/addAdmin','AuthController@addUser');
+ $router->get('/addEditor','AuthController@addUser');
+ $router->get('/generateToken/:id','AuthController@generateToken');
+
+ $router->get('/editEditor/:id','AuthController@editUser');
+ $router->get('/editAdmin/:id','AuthController@editUser');
+ $router->get('/editArticle/:id','AuthController@editArticle');
+ $router->get('/editCategorie/:id','AuthController@editCategorie');
+
  $router->get('/gestionArticle','AuthController@gestionArticle');
  $router->get('/gestionAdmin','AuthController@gestionAdmin');
  $router->get('/gestionMembre','AuthController@gestionMembre');
  $router->get('/getMemberArticles','AuthController@getMemberArticles');
- $router->get('/addCategorie','AuthController@addCategorie');
  $router->get('/gestionCategorie','AuthController@gestionCategorie');
+
+ $router->get('/revokeToken/:id','AuthController@revokeToken');
+ $router->get('/removeAdmin/:id','AuthController@removeUser');
+ $router->get('/removeArticle/:id','AuthController@removeArticle');
+ $router->get('/removeCategorie/:id','AuthController@removeCategorie');
+ $router->get('/removeEditor/:id','AuthController@removeUser');
 
  //POST Request
  $router->post('/register','AuthController@register');
  $router->post('/login','AuthController@login');
+
  $router->post('/writeArticle','AuthController@writeArticle');
+ $router->post('/storeCategorie','AuthController@storeCategorie');
+ $router->post('/storeWrittedArticle','AuthController@storeWrittedArticle');
+
  $router->post('/gestionArticle','AuthController@gestionArticle');
  $router->post('/gestionAdmin','AuthController@gestionAdmin');
  $router->post('/gestionMembre','AuthController@gestionMembre');
- $router->post('/storeCategorie','AuthController@storeCategorie');
- $router->post('/storeWrittedArticle','AuthController@storeWrittedArticle');
+
+ $router->post('/updateCategorie','AuthController@updateCategorie');
+ $router->post('/updateUser/:id','AuthController@updateUser');
+ $router->post('/updateArticle','AuthController@updateArticle');
 
 
  $router->run();

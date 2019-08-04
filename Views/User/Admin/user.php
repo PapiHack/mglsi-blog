@@ -17,7 +17,7 @@ ob_start();
     </div>
 <?php } ?>
 
-    <form <?php if(isset($user)){ ?> action="<?= URI?>updateUser/<?= $user->getId() ?>" <?php } ?> action="/register" class="form-vertical" method="POST">
+    <form <?php if(isset($user)){ ?> action="<?= URI?>updateUser/<?= $user->getId() ?>" <?php } ?> action="<?= URI?>register" class="form-vertical" method="POST">
         <div class="form-group">
             <legend><?= isset($user) ? 'Edition' : 'Ajout' ?> d'un <?= SessionManager::get('add') == 'admin' ? 'admin' : 'éditeur' ?></legend>
             <?php if(isset($user) && $user->getId() == SessionManager::get('user')->getId()) {

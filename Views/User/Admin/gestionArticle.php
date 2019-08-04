@@ -32,7 +32,7 @@ ob_start();
                         <td> <?= $article->getDateCreation() ?> </td>
                         <td>
                             <a href="<?= URI?>article/<?= $article->getId() ?>" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
-                            <a href="editArticle/=<?= $article->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
+                            <a href="<?= URI?>editArticle/<?= $article->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
                             <button type="button" id="<?= $article->getId() ?>" class="btn btn-danger sup"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
@@ -82,9 +82,9 @@ require_once('../Views/User/layoutAdmin.php');
                                 timer: 1500,
                                 })
 
-                            // setTimeout(function(){
-                            //     window.location = 'http://papihack/mglsi_news/public/index.php?action=removeArticle&id=' + event.target.id
-                            // }, 1000)
+                            setTimeout(function(){
+                                window.location = '/mglsi-blog/removeArticle/' + event.target.id
+                            }, 1000)
                         }
                         else
                             event.preventDefault()

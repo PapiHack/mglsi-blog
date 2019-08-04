@@ -1,6 +1,11 @@
 <?php $title = 'Actualités MGLSI';
 
-$entete = 'Site d\'actualité du MGLSI';
+if(SessionManager::get('user') && SessionManager::get('user')->getStatut() == 'admin')
+    $entete = 'ESPACE ADMIN';
+else if(SessionManager::get('user') && SessionManager::get('user')->getStatut() == 'user')
+    $entete = 'Mon espace perso';
+else
+    $entete = 'Site d\'actualités du MGLSI';
 
 ob_start();
 
@@ -21,6 +26,11 @@ ob_start();
 
 $content = ob_get_clean();
 
-require_once('../Views/layout.php');
+if(SessionManager::get('user') && SessionManager::get('user')->getStatut() == 'admin')
+    require_once('../Views/User/layoutAdmin.php');
+else if(SessionManager::get('user') && SessionManager::get('user')->getStatut() == 'user')
+    require_once('../Views/User/layoutMembre.php');
+else
+    require_once('../Views/layout.php');
 
 ?>

@@ -3,15 +3,15 @@
 require_once('../Config/autoloader.php');
 
 /**
- * 
+ *
  * @author P@piHack3R
  * @since 25/06/19
  * @version 1.0.0
- * 
+ *
  * Classe représentant le controller de tout ce qui est authentification.
- * 
+ *
  */
-class AuthController 
+class AuthController
 {
     private $connexion;
     private $authManager;
@@ -26,9 +26,9 @@ class AuthController
     {
         SessionManager::start();
         $this->connexion = Connexion::getConnexion();
-        $this->articleManager = new ArticleManager($this->connexion);  
-        $this->categorieManager = new CategorieManager($this->connexion);  
-        $this->authManager = new AuthManager($this->connexion);  
+        $this->articleManager = new ArticleManager($this->connexion);
+        $this->categorieManager = new CategorieManager($this->connexion);
+        $this->authManager = new AuthManager($this->connexion);
         $this->userManager = new UserManager($this->connexion);
         $this->tokenManager = new TokenManager($this->connexion);
         $this->tokenGenerator = new TokenGenerator($this->tokenManager->getAll());
@@ -60,7 +60,7 @@ class AuthController
             $nbUsers = count($this->userManager->getAll());
             $idUser = $nbUsers == 0 ? 1 : $this->userManager->getAll()[$nbUsers - 1]->getId();
             $this->authManager->add(new Auth(['idUser' => $idUser, 'login' => $_POST['pseudo'], 'mdp' => $_POST['mdp']]));
-            
+
             if($_POST['statut'] == 'admin')
                     $success = 'Admin ajouté !';
             else if($_POST['statut'] == 'user')
@@ -77,7 +77,7 @@ class AuthController
         {
             $this->connexion();
         }
-        else 
+        else
         {
             if($this->validationService->authValidation($_POST))
             {
@@ -87,7 +87,7 @@ class AuthController
                 SessionManager::set('userAuth', $userAuth);
                 $user->getStatut() === 'user' ? require_once('../Views/User/Membre/index.php') : require_once('../Views/User/Admin/index.php');
             }
-            else 
+            else
             {
                 $error = "Login ou mot de passe incorrecte !";
                 require_once('../Views/Auth/connexion.php');
@@ -227,11 +227,11 @@ class AuthController
             $this->connexion();
     }
 
-    public function editArticle()
+    public function editArticle($id)
     {
         if(SessionManager::get('user'))
         {
-            $article = $this->articleManager->get($_GET['id']);
+            $article = $this->articleManager->get($id);
             $categories = (new CategorieManager($this->connexion))->getAll();
             SessionManager::set('categories', $categories);
             require_once('../Views/User/Membre/writeArticle.php');
@@ -267,11 +267,11 @@ class AuthController
             $this->connexion();
     }
 
-    public function removeArticle()
+    public function removeArticle($id)
     {
         if(SessionManager::get('user'))
         {
-            $article = $this->articleManager->get($_GET['id']);
+            $article = $this->articleManager->get($id);
             $this->articleManager->remove($article);
             SessionManager::get('user')->getStatut() == 'admin' ? $this->gestionArticle() : $this->getMemberArticles();
         }
@@ -279,11 +279,11 @@ class AuthController
             $this->connexion();
     }
 
-    public function editCategorie()
+    public function editCategorie($id)
     {
         if(SessionManager::get('user'))
         {
-            $categorie = $this->categorieManager->get($_GET['id']);
+            $categorie = $this->categorieManager->get($id);
             require_once('../Views/User/Admin/addCategorie.php');
         }
         else
@@ -313,11 +313,11 @@ class AuthController
             $this->connexion();
     }
 
-    public function removeCategorie()
+    public function removeCategorie($id)
     {
         if(SessionManager::get('user'))
         {
-            $categorie = $this->categorieManager->get($_GET['id']);
+            $categorie = $this->categorieManager->get($id);
             $this->categorieManager->remove($categorie);
             $this->gestionCategorie();
         }
@@ -335,23 +335,23 @@ class AuthController
             $this->connexion();
     }
 
-    public function editUser()
+    public function editUser($id)
     {
         if(SessionManager::get('user'))
         {
-            $user = $this->userManager->get($_GET['id']);
-            $auth = $this->authManager->getAuthByUser($_GET['id']);
+            $user = $this->userManager->get($id);
+            $auth = $this->authManager->getAuthByUser($id);
             require_once('../Views/User/Admin/user.php');
         }
         else
             $this->connexion();
     }
 
-    public function updateUser()
+    public function updateUser($id)
     {
         $registerValid = $this->validationService->registerValidation($_POST);
-        $user = $this->userManager->get($_GET['id']);
-        $auth = $this->authManager->getAuthByUser($_GET['id']);
+        $user = $this->userManager->get($id);
+        $auth = $this->authManager->getAuthByUser($id);
 
         if(SessionManager::get('user'))
         {
@@ -369,31 +369,31 @@ class AuthController
             {
                 $error = $registerValid;
                 require_once('../Views/User/Admin/user.php');
-            }  
+            }
         }
         else
             $this->connexion();
     }
 
-    public function removeUser()
+    public function removeUser($id)
     {
         if(SessionManager::get('user'))
         {
-            $user = $this->userManager->get($_GET['id']);
-            $auth = $this->authManager->getAuthByUser($_GET['id']);
+            $user = $this->userManager->get($id);
+            $auth = $this->authManager->getAuthByUser($id);
             $this->authManager->remove($auth);
             $this->userManager->remove($user);
-            $_GET['action'] == 'removeAdmin' ? $this->gestionAdmin() : $this->gestionMembre();
+            strpos($_GET['url'],'removeAdmin')  ? $this->gestionAdmin() : $this->gestionMembre();
         }
         else
             $this->connexion();
     }
 
-    public function generateToken()
+    public function generateToken($id)
     {
         if(SessionManager::get('user'))
         {
-            $user = $this->userManager->get($_GET['id']);
+            $user = $this->userManager->get($id);
 
             $token = new Token([
                 'idUser' => $user->getId(),
@@ -407,16 +407,16 @@ class AuthController
             $this->connexion();
     }
 
-    public function revokeToken()
+    public function revokeToken($id)
     {
         if(SessionManager::get('user'))
         {
-            $user = $this->userManager->get($_GET['id']);
+            $user = $this->userManager->get($id);
             $token = $this->tokenManager->getTokenByUser($user->getId());
             $this->tokenManager->remove($token);
             $this->gestionAdmin();
         }
         else
-            $this->connexion();  
+            $this->connexion();
     }
 }

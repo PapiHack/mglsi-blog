@@ -77,9 +77,9 @@ require_once('../Views/User/layoutAdmin.php');
                                 timer: 1500,
                                 })
 
-                            // setTimeout(function(){
-                            //     window.location = 'http://papihack/mglsi_news/public/index.php?action=removeEditor&id=' + event.target.id
-                            // }, 1000)
+                            setTimeout(function(){
+                                window.location = '/mglsi-blog/removeEditor/' + event.target.id
+                            }, 1000)
                         }
                         else
                             event.preventDefault()

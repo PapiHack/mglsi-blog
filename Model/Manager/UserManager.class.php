@@ -1,16 +1,16 @@
 <?php
- 
+
  require_once('../Utilities/HydratationTrait.php');
 
 /**
- * 
+ *
  * @author P@piHack3R
  * @since 25/06/19
  * @version 1.0.0
- * 
- * 
+ *
+ *
  * Classe Représentant le DAO d'un User.
- * 
+ *
  */
 class UserManager
 {
@@ -35,7 +35,7 @@ class UserManager
     {
         $request = $this->db->prepare('INSERT INTO User (nom, prenom,
         mail, statut) VALUES(:nom, :prenom, :mail, :statut)');
-                    
+
         return $request->execute([
             'nom'    => $user->getNom(),
             'prenom' => $user->getPrenom(),
@@ -59,7 +59,7 @@ class UserManager
         {
             $users [] = new User($data);
         }
-        
+
         return $users;
     }
 
@@ -78,7 +78,7 @@ class UserManager
     {
         $request = $this->db->prepare('UPDATE User SET nom = :nom, prenom = :prenom,
                          mail = :mail, statut = :statut WHERE id = :id');
-        
+
         return $request->execute([
             'nom'    => $user->getNom(),
             'prenom' => $user->getPrenom(),
@@ -91,7 +91,7 @@ class UserManager
     public function pseudo_exist($login)
     {
 
-        if($_GET['action'] == 'updateUser')
+        if(strpos($_GET['url'],'updateUser'))
         {
             $authManager = new AuthManager(Connexion::getConnexion());
             $auths = $authManager->getAll();
@@ -103,22 +103,22 @@ class UserManager
                 if($auth->getLogin() == $login && $auth != $_auth)
                     $pseudoExist++;
             }
-            return $pseudoExist; 
+            return $pseudoExist;
         }
 
         $request = $this->db->prepare('SELECT * FROM Auth WHERE login = :login');
         $request->execute(['login' => $login]);
-        
+
         return count($request->fetchAll());
     }
 
     public function mail_exist($mail)
     {
 
-        if($_GET['action'] == 'updateUser')
+        if(strpos($_GET['url'],'updateUser'))
         {
             $users = $this->getAll();
-            $_user = $this->get($_GET['id']); 
+            $_user = $this->get($_GET['id']);
             $mailExist = 0;
 
             foreach($users as $user)
@@ -126,7 +126,7 @@ class UserManager
                 if($user->getMail() == $mail && $user != $_user)
                     $mailExist++;
             }
-            return $mailExist; 
+            return $mailExist;
         }
 
         $request = $this->db->prepare('SELECT * FROM User WHERE mail = :mail');
@@ -145,7 +145,7 @@ class UserManager
         {
             $users [] = new User($data);
         }
-        
+
         return $users;
     }
 
@@ -159,7 +159,7 @@ class UserManager
         {
             $users [] = new User($data);
         }
-        
+
         return $users;
     }
 
