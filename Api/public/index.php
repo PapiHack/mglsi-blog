@@ -17,8 +17,10 @@
  $articleApiController = new ArticleApiController();
 
 if($_GET['action'] == 'get')
-    $articleApiController->get();
+    echo $articleApiController->get();
 else if(isset($_GET['id']) && $_GET['action'] == 'getById')
-    $articleApiController->getById($_GET['id']);
+    echo $articleApiController->getById($_GET['id']);
 else if(isset($_GET['id']) && $_GET['action'] == 'getByCateg')
-    $articleApiController->getArticleByCategory($_GET['id']);
+    echo $articleApiController->getArticleByCategory($_GET['id']);
+if($_GET['action'] == 'getAllByCategory')
+    echo $articleApiController->getAllArticlesGroupByCategory();
