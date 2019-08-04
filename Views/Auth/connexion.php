@@ -1,6 +1,6 @@
-<?php $title = 'Login MGLSI NEWS'; 
+<?php $title = 'Login MGLSI NEWS';
 
-$entete = 'Connexion à M1GLSI - NEWS';
+$entete = 'Site d\'actualité du MGLSI';
 
 ob_start();
 
@@ -14,7 +14,7 @@ ob_start();
     </div>
 
     <?php }  ?>
-    <form action="index.php?action=login" method="POST" class="form-vertical">
+    <form action="<?= URI?>login" method="POST" class="form-vertical">
         <div class="form-group">
             <legend>Authentification</legend>
         </div>
@@ -24,7 +24,7 @@ ob_start();
                 <label for="pseudo" class="col-lg-3">Pseudo</label>
                 <div class="col-lg-6">
                     <input type="text" name="pseudo" class="form-control" required id="pseudo" placeholder="Votre pseudo..."/>
-                </div> 
+                </div>
             </div>
         </div>
 
@@ -34,7 +34,7 @@ ob_start();
                 <label for="mdp" class="col-lg-3">Mot de passe</label>
                 <div class="col-lg-6">
                     <input type="password" placeholder="Votre mot de passe..." class="form-control" name="mdp" required id="mdp" />
-                </div> 
+                </div>
             </div>
         </div>
 
@@ -47,16 +47,16 @@ ob_start();
     </form>
 </div>
 
-<script>
+<!-- <script>
     document.getElementById('cancel').addEventListener('click', function(event){
         event.preventDefault()
         window.location.replace('http://localhost/mglsi_news/public/index.php')
     })
-</script>
+</script> -->
 
 <?php
 
-$content = ob_get_clean(); 
+$content = ob_get_clean();
 
 require_once('../Views/layout.php');
 

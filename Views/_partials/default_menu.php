@@ -1,11 +1,6 @@
 <div id="menu">
-	<h1>Catégories</h1><hr width="60%">
 	<ul>
-		<li><a href="<?= URI?>index">Tout</a></li>
-		<?php foreach ($this->allCategories as $categorie): ?>
-			<li><a href="<?= URI?>categorie/<?= $categorie->getId() ?>"><?= $categorie->getLibelle() ?></a></li>
-		<?php endforeach ?>
-	</ul>
+		<li><a href="<?= URI?>index">Acceuil</a></li>
 	<h1>Espace Membre</h1><hr width="60%">
 	<ul>
 		<?php if(SessionManager::get('user')) { ?>

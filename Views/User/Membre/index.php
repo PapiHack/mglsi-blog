@@ -1,8 +1,8 @@
 <?php
 
-$title = 'Mon espace perso'; 
+$title = 'Mon espace perso';
 
-$entete = 'Mon espace perso';
+$entete = 'Site d\'actualité du MGLSI';
 
 ob_start();
 
@@ -12,7 +12,7 @@ ob_start();
     <h1>Bienvenue <?php echo SessionManager::get('user')->getPrenom().' '.SessionManager::get('user')->getNom(); ?> !</h1>
 </div>
 
-<?php $content = ob_get_clean(); 
+<?php $content = ob_get_clean();
 
 require_once('../Views/User/layoutMembre.php');
 

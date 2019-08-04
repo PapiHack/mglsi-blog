@@ -3,14 +3,14 @@
 require_once('../Config/autoloader.php');
 
 /**
- * 
+ *
  * @author P@piHack3R
  * @since 25/06/19
  * @version 1.0.0
- * 
- * Classe représentant le controller du blog et comportant des méthodes qui représentent 
+ *
+ * Classe représentant le controller du blog et comportant des méthodes qui représentent
  * des actions en fonction de la requête du user.
- * 
+ *
  */
 class BlogController
 {
@@ -37,15 +37,15 @@ class BlogController
         require_once('../Views/blog/index.php');
     }
 
-    public function articleByCategory()
+    public function articleByCategory($id)
     {
-        $this->allArticles = $this->articleManager->getByCategory($_GET['categorie']);
+        $this->allArticles = $this->articleManager->getByCategory($id);
         require_once('../Views/blog/index.php');
     }
 
-    public function article()
+    public function articleById($id)
     {
-        $article = $this->articleManager->get($_GET['id']);
+        $article = $this->articleManager->get($id);
         require_once('../Views/blog/article.php');
     }
 }

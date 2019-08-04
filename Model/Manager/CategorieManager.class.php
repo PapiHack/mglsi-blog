@@ -1,15 +1,15 @@
 <?php
 /**
- * 
+ *
  * @author P@piHack3R
  * @since 25/06/19
  * @version 1.0.0
- * 
- * 
+ *
+ *
  * Classe représentant le DAO d'une Catégorie.
- * 
+ *
  */
-class CategorieManager 
+class CategorieManager
 {
 
     private $db;
@@ -31,10 +31,9 @@ class CategorieManager
 
     public function add(Categorie $categorie)
     {
-        $request = $this->db->prepare('INSERT INTO Categorie (id, libelle) VALUES(:id, :libelle)');
-        
+        $request = $this->db->prepare('INSERT INTO Categorie (libelle) VALUES(:libelle)');
+
         return $request->execute([
-            'id'      => '',
             'libelle' => $categorie->getLibelle()
         ]);
     }

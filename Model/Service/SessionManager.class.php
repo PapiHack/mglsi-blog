@@ -1,13 +1,13 @@
 <?php
 /**
- * 
+ *
  * @author P@piHack3R
  * @since 25/06/19
  * @version 1.0.0
- * 
- * 
+ *
+ *
  * Classe permettant et facilitant la gestion des sessions.
- * 
+ *
  */
 class SessionManager
 {

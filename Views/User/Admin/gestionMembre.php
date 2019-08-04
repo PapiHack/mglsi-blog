@@ -1,6 +1,6 @@
-<?php $title = 'Mon espace perso'; 
+<?php $title = 'Espace Admin';
 
-$entete = 'Espace Admin';
+$entete = 'Site d\'actualité du MGLSI';
 
 ob_start();
 
@@ -8,7 +8,7 @@ ob_start();
 
 <div id="contenu">
 <h1>Liste des membres</h1>
-<p style="font-size: 1.5em;"><a href="index.php?action=addEditor" class="btn btn-success"><i class="fa fa-user-plus"></i> Ajouter un nouveau membre</a></p>
+<p style="font-size: 1.5em;"><a href="<?= URI?>addEditor" class="btn btn-success"><i class="fa fa-user-plus"></i> Ajouter un nouveau membre</a></p>
     <br>
     <?php if(empty($membres)){ ?>
     <h2>Pas encore de membre(s).</h2>
@@ -20,8 +20,8 @@ ob_start();
                     <th><b>Mail</b></th>
                     <th><b>Pseudo</b></th>
                     <th><b>Opérations</b></th>
-                </tr>  
-            </thead>   
+                </tr>
+            </thead>
 
             <tbody>
                 <?php foreach($membres as $membre) { ?>
@@ -31,17 +31,17 @@ ob_start();
                         <?php $userAuth = $this->authManager->getAuthByUser($membre->getId());  ?>
                         <td><?= $userAuth->getLogin() ?></td>
                         <td>
-                            <a href="index.php?action=editEditor&id=<?= $membre->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
-                            <button type="button" id="<?= $membre->getId() ?>" class="btn btn-danger sup"><i class="fa fa-trash"></i></button>             
+                            <a href="<?= URI?>editEditor/<?= $membre->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
+                            <button type="button" id="<?= $membre->getId() ?>" class="btn btn-danger sup"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
-                <?php } ?> 
+                <?php } ?>
         </tbody>
     </table>
 <?php } ?>
 </div>
 
-<?php $content = ob_get_clean(); 
+<?php $content = ob_get_clean();
 
 require_once('../Views/User/layoutAdmin.php');
 
@@ -67,7 +67,7 @@ require_once('../Views/User/layoutAdmin.php');
                     cancelButtonText: 'Non, annuler',
                     confirmButtonText: 'Oui, le supprimé !'
                     }).then((result) => {
-                        if (result.value) 
+                        if (result.value)
                         {
                             Swal.fire({
                                 position: 'center',
@@ -77,9 +77,9 @@ require_once('../Views/User/layoutAdmin.php');
                                 timer: 1500,
                                 })
 
-                            setTimeout(function(){
-                                window.location = 'http://papihack/mglsi_news/public/index.php?action=removeEditor&id=' + event.target.id
-                            }, 1000)
+                            // setTimeout(function(){
+                            //     window.location = 'http://papihack/mglsi_news/public/index.php?action=removeEditor&id=' + event.target.id
+                            // }, 1000)
                         }
                         else
                             event.preventDefault()

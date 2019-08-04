@@ -1,6 +1,6 @@
-<?php $title = 'Mon espace perso'; 
+<?php $title = 'Mon espace perso';
 
-$entete = 'Mon espace perso';
+$entete = 'Site d\'actualité du MGLSI';
 
 ob_start();
 
@@ -8,7 +8,7 @@ ob_start();
 
 <div id="contenu">
 <h1>Liste de mes articles</h1>
-<p style="font-size: 1.5em;"><a href="index.php?action=writeArticle" class="btn btn-success"><i class="fa fa-edit"></i>  Ecrire un nouvel article</a></p>
+<p style="font-size: 1.5em;"><a href="<?= URI?>writeArticle" class="btn btn-success"><i class="fa fa-edit"></i>  Ecrire un nouvel article</a></p>
     <br>
     <?php if(empty($articles)){ ?>
     <h2>Vous n'avez pas encore d'article(s).</h2>
@@ -19,8 +19,8 @@ ob_start();
                     <th><b>Titre</b></th>
                     <th><b>Date de publication</b></th>
                     <th><b>Opérations</b></th>
-                </tr> 
-            </thead>    
+                </tr>
+            </thead>
 
             <tbody>
                 <?php foreach($articles as $article) { ?>
@@ -28,18 +28,18 @@ ob_start();
                         <td><?= $article->getTitre() ?></td>
                         <td> <?= $article->getDateCreation() ?> </td>
                         <td>
-                            <a href="index.php?action=details&id=<?= $article->getId() ?>" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
-                            <a href="index.php?action=editArticle&id=<?= $article->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
-                            <button type="button" id="<?= $article->getId() ?>" class="btn btn-danger sup"><i class="fa fa-trash"></i></button>              
+                            <a href="<?= URI?>article/<?= $article->getId() ?>" class="btn btn-primary" title="Détails"><i class="fa fa-book"></i></a>
+                            <a href="<?= URI?>editArticle/<?= $article->getId() ?>" class="btn btn-warning" title="Editer"><i class="fa fa-edit"></i></a>
+                            <button type="button" id="<?= $article->getId() ?>" class="btn btn-danger sup"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
-                <?php } ?> 
+                <?php } ?>
         </tbody>
     </table>
 <?php } ?>
 </div>
 
-<?php $content = ob_get_clean(); 
+<?php $content = ob_get_clean();
 
 require_once('../Views/User/layoutMembre.php');
 
@@ -65,7 +65,7 @@ require_once('../Views/User/layoutMembre.php');
                     cancelButtonText: 'Non, annuler',
                     confirmButtonText: 'Oui, le supprimé !'
                     }).then((result) => {
-                        if (result.value) 
+                        if (result.value)
                         {
                             Swal.fire({
                                 position: 'center',
@@ -75,9 +75,9 @@ require_once('../Views/User/layoutMembre.php');
                                 timer: 1500,
                                 })
 
-                            setTimeout(function(){
-                                window.location = 'http://papihack/mglsi_news/public/index.php?action=removeArticle&id=' + event.target.id
-                            }, 1000)
+                            // setTimeout(function(){
+                            //     window.location = 'http://papihack/mglsi_news/public/index.php?action=removeArticle&id=' + event.target.id
+                            // }, 1000)
                         }
                         else
                             event.preventDefault()
