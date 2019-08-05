@@ -28,7 +28,8 @@ class BlogController
         $this->userManager = new UserManager($this->connexion);
         $this->articleManager = new ArticleManager($this->connexion);
         $this->categorieManager = new CategorieManager($this->connexion);
-        $this->allArticles = $this->articleManager->getAll();
+        $this->allArticles = $this->articleManager->getAll()['articles'];
+        $this->pagination = $this->articleManager->getAll()['pagination'];
         $this->allCategories = $this->categorieManager->getAll();
     }
 

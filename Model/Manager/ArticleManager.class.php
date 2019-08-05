@@ -57,8 +57,44 @@ class ArticleManager
         {
             $articles [] = new Article($data);
         }
+
+        $nbre_total_articles = count($articles);
+        $nbre_articles_par_page = 4;
+        $last_page = ceil($nbre_total_articles / $nbre_articles_par_page);
+
+        if(isset($_GET['page']) && is_numeric($_GET['page']))
+            $page_num = $_GET['page'];
+        else
+            $page_num = 1;
+
+        if($page_num < 1)
+            $page_num = 1;
+        else if($page_num > $last_page) 
+            $page_num = $last_page;
+
+        $limit = 'LIMIT '.($page_num - 1) * $nbre_articles_par_page. ',' . $nbre_articles_par_page;
+
+        $request = $this->db->query('SELECT * FROM Article ORDER BY dateCreation DESC '.$limit);
+        $articles = array();
+
+        while($data = $request->fetch(PDO::FETCH_ASSOC))
+        {
+            $articles [] = new Article($data);
+        }
+
+        $pagination = '';
+        if($last_page != 1){
+            if($page_num > 1){
+                $previous = $page_num - 1;
+                $pagination .= '<a  class="btn btn-primary" href="index.php?page='.$previous.'"><i class="fa fa-chevron-left"></i> Précédent</a> &nbsp; &nbsp;';
+            }
+            if($page_num != $last_page){
+                $next = $page_num + 1;
+                $pagination .= '<a class="btn btn-primary" href="index.php?page='.$next.'">Suivant <i class="fa fa-chevron-right"></i></a> ';
+            }
+        }
         
-        return $articles;
+        return ['articles' => $articles, 'pagination' => $pagination];
     }
 
     public function get($id)
