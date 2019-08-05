@@ -1,0 +1,321 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentation de l'API REST de la plateforme MGLSI_NEWS",
+        "contact": {
+            "email": "itdev94@gmail.com"
+        },
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://papihack/mglsi_news/Api",
+            "description": "Cette url est la racine de toutes les endpoints à interroger."
+        }
+    ],
+    "paths": {
+        "/articles": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "operationId": "ArticleApiController::get",
+                "parameters": [
+                    {
+                        "name": "dataType",
+                        "in": "query",
+                        "description": "Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Nos articles disponibles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    },
+                                    "xml": {
+                                        "name": "article"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    },
+                                    "xml": {
+                                        "name": "articles",
+                                        "wrapped": true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/articles/{id}": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "operationId": "ArticleApiController::getById",
+                "parameters": [
+                    {
+                        "name": "dataType",
+                        "in": "query",
+                        "description": "Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Permet de spécifier l'id de la ressource.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "L'article en question.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Article"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Article"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/articles/categorie/{id}": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "operationId": "ArticleApiController::getArticleByCategory",
+                "parameters": [
+                    {
+                        "name": "dataType",
+                        "in": "query",
+                        "description": "Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Permet de spécifier l'id de la catégorie dont on veut récuperer les articles.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Les articles correspondant à la catégorie spécifier.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    },
+                                    "xml": {
+                                        "name": "article"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    },
+                                    "xml": {
+                                        "name": "articles",
+                                        "wrapped": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/articlesByCategory": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "operationId": "ArticleApiController::getAllArticlesGroupByCategory",
+                "parameters": [
+                    {
+                        "name": "dataType",
+                        "in": "query",
+                        "description": "Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Nos articles disponibles regroupés par catégorie.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    },
+                                    "xml": {
+                                        "name": "article"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    },
+                                    "xml": {
+                                        "name": "articles",
+                                        "wrapped": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Article": {
+                "properties": {
+                    "id": {
+                        "description": "L'identifiant de l'article",
+                        "type": "integer"
+                    },
+                    "titre": {
+                        "description": "Titre de l'article",
+                        "type": "string"
+                    },
+                    "contenu": {
+                        "description": "Contenu de l'article",
+                        "type": "string"
+                    },
+                    "dateCreation": {
+                        "description": "Date de création de l'article",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "dateModification": {
+                        "description": "Date de modification de l'article",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "categorie": {
+                        "description": "Catégorie de l'article",
+                        "$ref": "#/components/schemas/Categorie"
+                    },
+                    "auteur": {
+                        "description": "Auteur de l'article",
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object"
+            },
+            "Categorie": {
+                "properties": {
+                    "id": {
+                        "description": "L'identifiant de la catégorie",
+                        "type": "integer"
+                    },
+                    "libelle": {
+                        "description": "Libellé de la catégorie",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "properties": {
+                    "id": {
+                        "description": "L'identifiant de la l'utilisateur",
+                        "type": "integer"
+                    },
+                    "nom": {
+                        "description": "Nom de l'utilisateur",
+                        "type": "string"
+                    },
+                    "prenom": {
+                        "description": "Prénom de l'utilisateur",
+                        "type": "string"
+                    },
+                    "mail": {
+                        "description": "Adresse email de l'utilisateur",
+                        "type": "string"
+                    },
+                    "statut": {
+                        "description": "Statut de l'utilisateur",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "article",
+            "description": "Opérations et informations disponibles sur les articles .",
+            "externalDocs": {
+                "description": "Visitez le site du MGLSI_NEWS",
+                "url": "http://papihack/mglsi_news/public/"
+            }
+        }
+    ]
+}

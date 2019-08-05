@@ -1,4 +1,7 @@
 <?php
+require_once('../vendor/autoload.php');
+
+use OpenApi\Annotations as OA;
 
 require_once('../Config/autoloader.php');
 
@@ -26,6 +29,37 @@ class ArticleApiController
         $this->categorieManager = new CategorieManager($this->connexion);
     }
 
+    public function displayApiDocumentation()
+    {
+        header('Location: ../../public/apidoc');
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/articles",
+     *      tags={"article"},
+     *      @OA\Parameter(
+     *          name="dataType",
+     *          in="query",
+     *          description="Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
+     *          required=false,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Nos articles disponibles",
+     *          @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Article"), @OA\Xml(name="article")),
+     *          @OA\XmlContent(type="array", @OA\Xml(name="articles", wrapped=true), @OA\Items(ref="#/components/schemas/Article"))
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="Article non trouvé",
+     *          @OA\JsonContent(type="string"),
+     *          @OA\XmlContent(type="string")
+     *      )
+     * )
+     * 
+     */
     public function get()
     {
         $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : 'json';
@@ -62,6 +96,32 @@ class ArticleApiController
         return $dataType == 'xml' ? $this->generate_valid_xml_from_array($articles, 'articles', 'article') : json_encode($articles);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/articles/{id}",
+     *      tags={"article"},
+     *      @OA\Parameter(
+     *          name="dataType",
+     *          in="query",
+     *          description="Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
+     *          required=false,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Permet de spécifier l'id de la ressource.",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="L'article en question.",
+     *          @OA\JsonContent(ref="#/components/schemas/Article"),
+     *          @OA\XmlContent(ref="#/components/schemas/Article")
+     *      )
+     * )
+     */
     public function getById($id)
     {
         $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : 'json';
@@ -95,6 +155,32 @@ class ArticleApiController
         return $dataType == 'xml' ? $this->generate_xml_from_array($result, 'article') : json_encode($result);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/articles/categorie/{id}",
+     *      tags={"article"},
+     *      @OA\Parameter(
+     *          name="dataType",
+     *          in="query",
+     *          description="Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
+     *          required=false,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="Permet de spécifier l'id de la catégorie dont on veut récuperer les articles.",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Les articles correspondant à la catégorie spécifier.",
+     *          @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Article"), @OA\Xml(name="article")),
+     *          @OA\XmlContent(type="array", @OA\Xml(name="articles", wrapped=true), @OA\Items(ref="#/components/schemas/Article"))
+     *      )
+     * )
+     */
     public function getArticleByCategory($id)
     {
         $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : 'json';
@@ -131,6 +217,25 @@ class ArticleApiController
         return $dataType == 'xml' ? $this->generate_valid_xml_from_array($articles, 'articles', 'article') : json_encode($articles);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/articlesByCategory",
+     *      tags={"article"},
+     *      @OA\Parameter(
+     *          name="dataType",
+     *          in="query",
+     *          description="Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
+     *          required=false,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Nos articles disponibles regroupés par catégorie.",
+     *          @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Article"), @OA\Xml(name="article")),
+     *          @OA\XmlContent(type="array", @OA\Xml(name="articles", wrapped=true), @OA\Items(ref="#/components/schemas/Article"))
+     *      )
+     * )
+     */
     public function getAllArticlesGroupByCategory()
     {
         $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : 'json';
