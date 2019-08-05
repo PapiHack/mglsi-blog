@@ -55,7 +55,7 @@ class ArticleApiController
      *          response="404",
      *          description="Article non trouvé",
      *          @OA\JsonContent(type="string"),
-     *          @OA\XmlContent(type="string", @OA\Xml(name="message"))
+     *          @OA\XmlContent(type="string")
      *      )
      * )
      * 
@@ -67,7 +67,7 @@ class ArticleApiController
         $allArticles = $this->articleManager->getAll();
 
         if(empty($allArticles))
-            return $dataType == 'xml' ? $this->generate_valid_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
 
         foreach($allArticles as $article)
         {
@@ -124,7 +124,7 @@ class ArticleApiController
      *          response="404",
      *          description="Article non trouvé",
      *          @OA\JsonContent(type="string"),
-     *          @OA\XmlContent(type="string", @OA\Xml(name="message"))
+     *          @OA\XmlContent(type="string")
      *      )
      * )
      */
@@ -135,7 +135,7 @@ class ArticleApiController
         $article = $this->articleManager->get($id);
 
         if($article == null)
-            return $dataType == 'xml' ? $this->generate_valid_xml_from_array(['message' => 'Cet article n\'existe pas !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Cet article n\'existe pas !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
 
         $auteur = $this->userManager->get($article->getAuteur());
         $categorie = $this->categorieManager->get($article->getCategorie());
@@ -189,7 +189,7 @@ class ArticleApiController
      *          response="404",
      *          description="Article non trouvé",
      *          @OA\JsonContent(type="string"),
-     *          @OA\XmlContent(type="string", @OA\Xml(name="message"))
+     *          @OA\XmlContent(type="string")
      *      )
      * )
      */
@@ -200,7 +200,7 @@ class ArticleApiController
         $articlesByCategorie = $this->articleManager->getByCategory($id);
 
         if(empty($articlesByCategorie))
-            return $dataType == 'xml' ? $this->generate_valid_xml_from_array(['message' => 'Aucun article trouvé pour cette catégorie !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé pour cette catégorie !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
 
         foreach($articlesByCategorie as $article)
         {
@@ -250,7 +250,7 @@ class ArticleApiController
      *          response="404",
      *          description="Article non trouvé",
      *          @OA\JsonContent(type="string"),
-     *          @OA\XmlContent(type="string", @OA\Xml(name="message"))
+     *          @OA\XmlContent(type="string")
      *      )
      * )
      */
@@ -261,7 +261,7 @@ class ArticleApiController
         $allArticles = $this->articleManager->getAll();
 
         if(empty($allArticles))
-            return $dataType == 'xml' ? $this->generate_valid_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
             
         return $dataType == 'xml' ? $this->generate_valid_xml_from_array($this->groupByCategory($allArticles), 'articles', 'article') : json_encode($this->groupByCategory($allArticles));
     }

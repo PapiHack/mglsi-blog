@@ -70,10 +70,7 @@
                             },
                             "application/xml": {
                                 "schema": {
-                                    "type": "string",
-                                    "xml": {
-                                        "name": "message"
-                                    }
+                                    "type": "string"
                                 }
                             }
                         }
@@ -133,10 +130,7 @@
                             },
                             "application/xml": {
                                 "schema": {
-                                    "type": "string",
-                                    "xml": {
-                                        "name": "message"
-                                    }
+                                    "type": "string"
                                 }
                             }
                         }
@@ -209,10 +203,7 @@
                             },
                             "application/xml": {
                                 "schema": {
-                                    "type": "string",
-                                    "xml": {
-                                        "name": "message"
-                                    }
+                                    "type": "string"
                                 }
                             }
                         }
@@ -276,10 +267,7 @@
                             },
                             "application/xml": {
                                 "schema": {
-                                    "type": "string",
-                                    "xml": {
-                                        "name": "message"
-                                    }
+                                    "type": "string"
                                 }
                             }
                         }
