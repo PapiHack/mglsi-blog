@@ -13,7 +13,7 @@ use OpenApi\Annotations as OA;
  * )
  * 
  * @OA\Server(
- *      url="http://papihack/mglsi_news/Api",
+ *      url="http://papihack/mglsi_news/Api/Rest",
  *      description="Cette url est la racine de toutes les endpoints à interroger."
  * )
  * 

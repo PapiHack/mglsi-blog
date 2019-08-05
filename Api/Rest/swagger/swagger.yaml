@@ -1,14 +1,18 @@
 openapi: 3.0.0
 info:
-  title: 'API REST de la plateforme MGLSI_NEWS'
+  title: 'Documentation de l''API REST de la plateforme MGLSI_NEWS'
+  contact:
+    email: itdev94@gmail.com
   version: 0.0.1
 servers:
   -
-    url: 'http://papihack/mglsi_news/Api'
-    description: 'Ceci est la documentation l''API de la plateforme MGLSI_NEWS'
+    url: 'http://papihack/mglsi_news/Api/Rest'
+    description: 'Cette url est la racine de toutes les endpoints à interroger.'
 paths:
   /articles:
     get:
+      tags:
+        - article
       operationId: 'ArticleApiController::get'
       parameters:
         -
@@ -37,8 +41,19 @@ paths:
                 xml:
                   name: articles
                   wrapped: true
+        '404':
+          description: 'Article non trouvé'
+          content:
+            application/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
   '/articles/{id}':
     get:
+      tags:
+        - article
       operationId: 'ArticleApiController::getById'
       parameters:
         -
@@ -65,8 +80,19 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Article'
+        '404':
+          description: 'Article non trouvé'
+          content:
+            application/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
   '/articles/categorie/{id}':
     get:
+      tags:
+        - article
       operationId: 'ArticleApiController::getArticleByCategory'
       parameters:
         -
@@ -102,8 +128,19 @@ paths:
                 xml:
                   name: articles
                   wrapped: true
+        '404':
+          description: 'Article non trouvé'
+          content:
+            application/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
   /articlesByCategory:
     get:
+      tags:
+        - article
       operationId: 'ArticleApiController::getAllArticlesGroupByCategory'
       parameters:
         -
@@ -132,6 +169,15 @@ paths:
                 xml:
                   name: articles
                   wrapped: true
+        '404':
+          description: 'Article non trouvé'
+          content:
+            application/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
 components:
   schemas:
     Article:
