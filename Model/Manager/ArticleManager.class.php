@@ -83,12 +83,15 @@ class ArticleManager
         }
 
         $pagination = '';
-        if($last_page != 1){
-            if($page_num > 1){
+        if($last_page != 1)
+        {
+            if($page_num > 1)
+            {
                 $previous = $page_num - 1;
                 $pagination .= '<a  class="btn btn-primary" href="index.php?page='.$previous.'"><i class="fa fa-chevron-left"></i> Précédent</a> &nbsp; &nbsp;';
             }
-            if($page_num != $last_page){
+            if($page_num != $last_page)
+            {
                 $next = $page_num + 1;
                 $pagination .= '<a class="btn btn-primary" href="index.php?page='.$next.'">Suivant <i class="fa fa-chevron-right"></i></a> ';
             }
