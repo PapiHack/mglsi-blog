@@ -31,7 +31,7 @@ class ArticleApiController
 
     public function displayApiDocumentation()
     {
-        header('Location: ../../public/apidoc');
+        header('Location: ../../../public/apidoc');
     }
 
     /**
