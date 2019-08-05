@@ -70,7 +70,10 @@
                             },
                             "application/xml": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "xml": {
+                                        "name": "message"
+                                    }
                                 }
                             }
                         }
@@ -116,6 +119,24 @@
                             "application/xml": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Article"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "string",
+                                    "xml": {
+                                        "name": "message"
+                                    }
                                 }
                             }
                         }
@@ -177,6 +198,24 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Article non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "string",
+                                    "xml": {
+                                        "name": "message"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -222,6 +261,24 @@
                                     "xml": {
                                         "name": "articles",
                                         "wrapped": true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "string",
+                                    "xml": {
+                                        "name": "message"
                                     }
                                 }
                             }
