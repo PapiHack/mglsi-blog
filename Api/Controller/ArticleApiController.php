@@ -55,7 +55,7 @@ class ArticleApiController
      *          response="404",
      *          description="Article non trouvé",
      *          @OA\JsonContent(type="string"),
-     *          @OA\XmlContent(type="string")
+     *          @OA\XmlContent(type="string", @OA\Xml(name="message"))
      *      )
      * )
      * 
@@ -119,6 +119,12 @@ class ArticleApiController
      *          description="L'article en question.",
      *          @OA\JsonContent(ref="#/components/schemas/Article"),
      *          @OA\XmlContent(ref="#/components/schemas/Article")
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="Article non trouvé",
+     *          @OA\JsonContent(type="string"),
+     *          @OA\XmlContent(type="string", @OA\Xml(name="message"))
      *      )
      * )
      */
@@ -178,6 +184,12 @@ class ArticleApiController
      *          description="Les articles correspondant à la catégorie spécifier.",
      *          @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Article"), @OA\Xml(name="article")),
      *          @OA\XmlContent(type="array", @OA\Xml(name="articles", wrapped=true), @OA\Items(ref="#/components/schemas/Article"))
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="Article non trouvé",
+     *          @OA\JsonContent(type="string"),
+     *          @OA\XmlContent(type="string", @OA\Xml(name="message"))
      *      )
      * )
      */
@@ -233,6 +245,12 @@ class ArticleApiController
      *          description="Nos articles disponibles regroupés par catégorie.",
      *          @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Article"), @OA\Xml(name="article")),
      *          @OA\XmlContent(type="array", @OA\Xml(name="articles", wrapped=true), @OA\Items(ref="#/components/schemas/Article"))
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          description="Article non trouvé",
+     *          @OA\JsonContent(type="string"),
+     *          @OA\XmlContent(type="string", @OA\Xml(name="message"))
      *      )
      * )
      */
