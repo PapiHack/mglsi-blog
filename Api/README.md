@@ -21,3 +21,6 @@ Pour la conception de cette API, une architecture simple a été mise en place b
 
     - Utilities  
     Contient des utilitaires. Ici il n'y qu'un fichier HydratationTrait.php contenant une méthode réalisant l'hydratation d'un objet.  
+
+    - Vendor  
+    Contient les dépendances de Swagger.
