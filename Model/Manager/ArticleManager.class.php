@@ -47,7 +47,7 @@ class ArticleManager
         return $this->db->exec('DELETE FROM Article WHERE id = '. $article->getId());
     }
 
-    public function getAll()
+    public function getPagination()
     {
         $articles = array();
 
@@ -98,6 +98,19 @@ class ArticleManager
         }
         
         return ['articles' => $articles, 'pagination' => $pagination];
+    }
+
+    public function getAll()
+    {
+        $request = $this->db->query('SELECT * FROM Article');
+        $articles = array();
+
+        while($data = $request->fetch(PDO::FETCH_ASSOC))
+        {
+            $articles [] = new Article($data);
+        }
+
+        return $articles;
     }
 
     public function get($id)
