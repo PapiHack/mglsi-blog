@@ -7,23 +7,72 @@
  * 
  */
 
+//require_once('../../Api/vendor/autoload.php');
+
+use OpenApi\Annotations as OA;
+
 require_once('../Utilities/HydratationTrait.php');
 
 /**
  * 
  * Classe représentant un Article.
- * 
+ * @OA\Schema()
  */
 class Article 
 {
     use HydratationTrait;
 
-    private $id;   
-    private $titre;   
-    private $contenu;   
-    private $dateCreation;   
+    /**
+     * @OA\Property(type="integer", description="L'identifiant de l'article")
+     *
+     * @var int
+     */
+    private $id;
+    
+    /**
+     * @OA\Property(type="string", description="Titre de l'article")
+     *
+     * @var String
+     */
+    private $titre;
+    
+    /**
+     * @OA\Property(type="string", description="Contenu de l'article")
+     *
+     * @var String
+     */   
+    private $contenu;
+    
+    /**
+     * @OA\Property(type="string", format="date-time", description="Date de création de l'article")
+     *
+     * @var \DateTime
+     */   
+    private $dateCreation;
+    
+    /**
+     * @OA\Property(type="string", format="date-time", description="Date de modification de l'article")
+     *
+     * @var \DateTime
+     */     
     private $dateModification;
+    
+    /**
+     * @OA\Property(description="Catégorie de l'article", 
+     *              ref="#/components/schemas/Categorie"
+     * )
+     *
+     * @var int
+     */   
     private $categorie;
+    
+    /**
+     * @OA\Property(description="Auteur de l'article", 
+     *              ref="#/components/schemas/User"
+     * )
+     *
+     * @var int
+     */ 
     private $auteur;
 
     public function __construct(Array $data)
