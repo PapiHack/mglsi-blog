@@ -1,5 +1,0 @@
-{
-    "require": {
-        "zendframework/zend-soap": "^2.8"
-    }
-}

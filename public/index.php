@@ -15,11 +15,10 @@
  define('WEBROOT',str_replace('index.php','',$_SERVER['SCRIPT_NAME']));
  define('ROOT',str_replace('index.php','',$_SERVER['SCRIPT_FILENAME']));
  $uri = explode('/',WEBROOT);
+ 
  define('URI','/'.$uri[1].'/');
 
  require_once('../Config/autoloader.php');
- require_once('../Api/Soap/MySoapServer.php');
- require_once('../Api/Rest/vendor/autoload.php');
  require_once('../Api/Rest/Controller/ArticleApiController.php');
 
  $router = new Router($_GET['url']);
@@ -29,6 +28,7 @@
 
  $router->get('/categorie/:id','BlogController@articleByCategory');
  $router->get('/article/:id','BlogController@articleById');
+ $router->get('/page/:id','BlogController@index');
 
 // GET Request
  $router->get('/inscription','AuthController@inscription');
@@ -84,6 +84,7 @@
  $router->get('/Apiarticlescategorie/:id/:type','ArticleApiController@getArticleByCategory');
  $router->get('/ApiarticlesByCategory','ArticleApiController@getAllArticlesGroupByCategory');
  $router->get('/ApiarticlesByCategory/:type','ArticleApiController@getAllArticlesGroupByCategory');
+ $router->get('/ApiDoc','ArticleApiController@displayApiDocumentation');
 
 
  $router->run();

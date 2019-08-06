@@ -1,18 +1,18 @@
 <?php
-require_once('../vendor/autoload.php');
-
-use OpenApi\Annotations as OA;
+// require_once('../vendor/autoload.php');
+//
+// use OpenApi\Annotations as OA;
 
 require_once('../Config/autoloader.php');
 
 /**
- * 
+ *
  * @author P@piHack3R
  * @since 04/08/19
  * @version 1.0.0
- * 
+ *
  * Classe représentant le controller de l'API REST pour les requêtes concernant le model Article.
- * 
+ *
  */
 class ArticleApiController
 {
@@ -31,7 +31,7 @@ class ArticleApiController
 
     public function displayApiDocumentation()
     {
-        header('Location: ../../../public/apidoc');
+        header('Location: '.WEBROOT.'apidoc/index.html');
     }
 
     /**
@@ -58,11 +58,12 @@ class ArticleApiController
      *          @OA\XmlContent(type="string")
      *      )
      * )
-     * 
+     *
      */
-    public function get()
+    public function get($type = null)
     {
-        $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : 'json';
+
+        $dataType = $type != null ? $type : 'json';
         $dataType == 'xml' ? header("Content-Type: application/xml; charset=UTF-8") : header("Content-Type: application/json; charset=UTF-8");
         $allArticles = $this->articleManager->getAll();
 
@@ -128,9 +129,9 @@ class ArticleApiController
      *      )
      * )
      */
-    public function getById($id)
+    public function getById($id,$type = null)
     {
-        $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : 'json';
+        $dataType = $type != null ? $type : 'json';
         $dataType == 'xml' ? header("Content-Type: application/xml; charset=UTF-8") : header("Content-Type: application/json; charset=UTF-8");
         $article = $this->articleManager->get($id);
 
@@ -193,9 +194,9 @@ class ArticleApiController
      *      )
      * )
      */
-    public function getArticleByCategory($id)
+    public function getArticleByCategory($id,$type = null)
     {
-        $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : 'json';
+        $dataType = $type != null ? $type : 'json';
         $dataType == 'xml' ? header("Content-Type: application/xml; charset=UTF-8") : header("Content-Type: application/json; charset=UTF-8");
         $articlesByCategorie = $this->articleManager->getByCategory($id);
 
@@ -254,15 +255,15 @@ class ArticleApiController
      *      )
      * )
      */
-    public function getAllArticlesGroupByCategory()
+    public function getAllArticlesGroupByCategory($type = null)
     {
-        $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : 'json';
+        $dataType = $type != null ? $type : 'json';
         $dataType == 'xml' ? header("Content-Type: application/xml; charset=UTF-8") : header("Content-Type: application/json; charset=UTF-8");
         $allArticles = $this->articleManager->getAll();
 
         if(empty($allArticles))
             return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
-            
+
         return $dataType == 'xml' ? $this->generate_valid_xml_from_array($this->groupByCategory($allArticles), 'articles', 'article') : json_encode($this->groupByCategory($allArticles));
     }
 
@@ -308,38 +309,38 @@ class ArticleApiController
         return $all;
     }
 
-    private function generate_xml_from_array($array, $node_name) 
+    private function generate_xml_from_array($array, $node_name)
     {
         $xml = '';
-    
-        if (is_array($array) || is_object($array)) 
+
+        if (is_array($array) || is_object($array))
         {
-            foreach ($array as $key => $value) 
+            foreach ($array as $key => $value)
             {
-                if (is_numeric($key)) 
+                if (is_numeric($key))
                 {
                     $key = $node_name;
                 }
-    
+
                 $xml .= '<' . $key . '>' . "\n" . $this->generate_xml_from_array($value, $node_name) . '</' . $key . '>' . "\n";
             }
-        } 
-        else 
+        }
+        else
         {
             $xml = htmlspecialchars($array, ENT_QUOTES) . "\n";
         }
-    
+
         return $xml;
     }
-    
-    private function generate_valid_xml_from_array($array, $node_block='nodes', $node_name='node') 
+
+    private function generate_valid_xml_from_array($array, $node_block='nodes', $node_name='node')
     {
         $xml = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
-    
+
         $xml .= '<' . $node_block . '>' . "\n";
         $xml .= $this->generate_xml_from_array($array, $node_name);
         $xml .= '</' . $node_block . '>' . "\n";
-    
+
         return $xml;
     }
 }

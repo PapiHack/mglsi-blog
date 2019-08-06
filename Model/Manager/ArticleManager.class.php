@@ -1,16 +1,16 @@
 <?php
 
 /**
- * 
+ *
  * @author P@piHack3R
  * @since 25/06/19
  * @version 1.0.0
- * 
- * 
+ *
+ *
  * Classe représentant le DAO d'un Article.
- * 
+ *
  */
-class ArticleManager 
+class ArticleManager
 {
     private $db;
 
@@ -31,9 +31,9 @@ class ArticleManager
 
     public function add(Article $article)
     {
-        $request = $this->db->prepare('INSERT INTO Article (titre, contenu, categorie, 
+        $request = $this->db->prepare('INSERT INTO Article (titre, contenu, categorie,
         dateCreation, dateModification, auteur) VALUES(:titre, :contenu, :categorie, NOW(), NOW(), :auteur)');
-                    
+
         return $request->execute([
             'titre'     => $article->getTitre(),
             'contenu'   => $article->getContenu(),
@@ -69,7 +69,7 @@ class ArticleManager
 
         if($page_num < 1)
             $page_num = 1;
-        else if($page_num > $last_page) 
+        else if($page_num > $last_page)
             $page_num = $last_page;
 
         $limit = 'LIMIT '.($page_num - 1) * $nbre_articles_par_page. ',' . $nbre_articles_par_page;
@@ -88,15 +88,15 @@ class ArticleManager
             if($page_num > 1)
             {
                 $previous = $page_num - 1;
-                $pagination .= '<a  class="btn btn-primary" href="index.php?page='.$previous.'"><i class="fa fa-chevron-left"></i> Précédent</a> &nbsp; &nbsp;';
+                $pagination .= '<a  class="btn btn-primary" href="'.URI.'page/'.$previous.'"><i class="fa fa-chevron-left"></i> Précédent</a> &nbsp; &nbsp;';
             }
             if($page_num != $last_page)
             {
                 $next = $page_num + 1;
-                $pagination .= '<a class="btn btn-primary" href="index.php?page='.$next.'">Suivant <i class="fa fa-chevron-right"></i></a> ';
+                $pagination .= '<a class="btn btn-primary" href="'.URI.'page/'.$next.'">Suivant <i class="fa fa-chevron-right"></i></a> ';
             }
         }
-        
+
         return ['articles' => $articles, 'pagination' => $pagination];
     }
 
@@ -127,7 +127,7 @@ class ArticleManager
     public function update(Article $article)
     {
         $request = $this->db->prepare('UPDATE Article SET contenu = :contenu, categorie = :categorie, titre = :titre, dateModification = :dateM WHERE id = :id');
-        
+
         return $request->execute([
             'titre'     => $article->getTitre(),
             'contenu'   => $article->getContenu(),
@@ -163,7 +163,7 @@ class ArticleManager
         {
             $articles [] = new Article($data);
         }
-        
+
         return $articles;
     }
 }
