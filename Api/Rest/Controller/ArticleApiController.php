@@ -138,7 +138,7 @@ class ArticleApiController
 
         if($article == null)
         {
-            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Article non innexistant !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Article innexistant !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
             die();
         }
         $auteur = $this->userManager->get($article->getAuteur());
