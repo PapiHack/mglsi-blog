@@ -76,15 +76,17 @@
  $router->post('/updateArticle','AuthController@updateArticle');
 
  // API Request
- $router->get('/Apiarticles','ArticleApiController@get');
- $router->get('/Apiarticles/:type','ArticleApiController@get');
- $router->get('/Apiarticle/:id','ArticleApiController@getById');
- $router->get('/Apiarticle/:id/:type','ArticleApiController@getById');
- $router->get('/Apiarticlescategorie/:id','ArticleApiController@getArticleByCategory');
- $router->get('/Apiarticlescategorie/:id/:type','ArticleApiController@getArticleByCategory');
- $router->get('/ApiarticlesByCategory','ArticleApiController@getAllArticlesGroupByCategory');
- $router->get('/ApiarticlesByCategory/:type','ArticleApiController@getAllArticlesGroupByCategory');
+ $router->get('/Api/Rest/articles/:id','ArticleApiController@getById');
+ $router->get('/Api/Rest/articles/:id/:type','ArticleApiController@getById');
+ $router->get('/Api/Rest/articles','ArticleApiController@get');
+ $router->get('/Api/Rest/articles/:type','ArticleApiController@get');
+ $router->get('/Api/Rest/articles/categorie/:id','ArticleApiController@getArticleByCategory');
+ $router->get('/Api/Rest/articles/categorie/:id/:type','ArticleApiController@getArticleByCategory');
+ $router->get('/Api/Rest/articlesByCategory','ArticleApiController@getAllArticlesGroupByCategory');
+ $router->get('/Api/Rest/articlesByCategory/:type','ArticleApiController@getAllArticlesGroupByCategory');
  $router->get('/ApiDoc','ArticleApiController@displayApiDocumentation');
+ $router->get('/Api','ArticleApiController@displayApiDocumentation');
+ $router->get('/Api/Rest','ArticleApiController@displayApiDocumentation');
 
 
  $router->run();

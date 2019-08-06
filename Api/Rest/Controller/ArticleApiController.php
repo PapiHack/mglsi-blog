@@ -62,13 +62,12 @@ class ArticleApiController
      */
     public function get($type = null)
     {
-
         $dataType = $type != null ? $type : 'json';
         $dataType == 'xml' ? header("Content-Type: application/xml; charset=UTF-8") : header("Content-Type: application/json; charset=UTF-8");
         $allArticles = $this->articleManager->getAll();
 
         if(empty($allArticles))
-            return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
 
         foreach($allArticles as $article)
         {
@@ -94,7 +93,7 @@ class ArticleApiController
                 ]
             ];
         }
-        return $dataType == 'xml' ? $this->generate_valid_xml_from_array($articles, 'articles', 'article') : json_encode($articles);
+        echo $dataType == 'xml' ? $this->generate_valid_xml_from_array($articles, 'articles', 'article') : json_encode($articles);
     }
 
     /**
@@ -129,14 +128,14 @@ class ArticleApiController
      *      )
      * )
      */
-    public function getById($id,$type = null)
+    public function getById($id, $type = null)
     {
         $dataType = $type != null ? $type : 'json';
         $dataType == 'xml' ? header("Content-Type: application/xml; charset=UTF-8") : header("Content-Type: application/json; charset=UTF-8");
         $article = $this->articleManager->get($id);
 
         if($article == null)
-            return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Cet article n\'existe pas !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Cet article n\'existe pas !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
 
         $auteur = $this->userManager->get($article->getAuteur());
         $categorie = $this->categorieManager->get($article->getCategorie());
@@ -159,7 +158,7 @@ class ArticleApiController
                 'statut' => $auteur->getStatut()
             ]
         ];
-        return $dataType == 'xml' ? $this->generate_xml_from_array($result, 'article') : json_encode($result);
+        echo $dataType == 'xml' ? $this->generate_xml_from_array($result, 'article') : json_encode($result);
     }
 
     /**
@@ -194,14 +193,14 @@ class ArticleApiController
      *      )
      * )
      */
-    public function getArticleByCategory($id,$type = null)
+    public function getArticleByCategory($id, $type = null)
     {
         $dataType = $type != null ? $type : 'json';
         $dataType == 'xml' ? header("Content-Type: application/xml; charset=UTF-8") : header("Content-Type: application/json; charset=UTF-8");
         $articlesByCategorie = $this->articleManager->getByCategory($id);
 
         if(empty($articlesByCategorie))
-            return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé pour cette catégorie !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé pour cette catégorie !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
 
         foreach($articlesByCategorie as $article)
         {
@@ -227,7 +226,7 @@ class ArticleApiController
                 ]
             ];
         }
-        return $dataType == 'xml' ? $this->generate_valid_xml_from_array($articles, 'articles', 'article') : json_encode($articles);
+        echo $dataType == 'xml' ? $this->generate_valid_xml_from_array($articles, 'articles', 'article') : json_encode($articles);
     }
 
     /**
@@ -262,9 +261,9 @@ class ArticleApiController
         $allArticles = $this->articleManager->getAll();
 
         if(empty($allArticles))
-            return $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
 
-        return $dataType == 'xml' ? $this->generate_valid_xml_from_array($this->groupByCategory($allArticles), 'articles', 'article') : json_encode($this->groupByCategory($allArticles));
+        echo $dataType == 'xml' ? $this->generate_valid_xml_from_array($this->groupByCategory($allArticles), 'articles', 'article') : json_encode($this->groupByCategory($allArticles));
     }
 
     private function groupByCategory($articles)
