@@ -58,14 +58,13 @@ class ArticleManager
             $articles [] = new Article($data);
         }
 
+        $url = explode('/', $_GET['url']);
+        $page = (empty($_GET['url'])) ? 1 : $page = $url[1];
         $nbre_total_articles = count($articles);
         $nbre_articles_par_page = 4;
         $last_page = ceil($nbre_total_articles / $nbre_articles_par_page);
 
-        if(isset($_GET['page']) && is_numeric($_GET['page']))
-            $page_num = $_GET['page'];
-        else
-            $page_num = 1;
+        $page_num = $page;
 
         if($page_num < 1)
             $page_num = 1;

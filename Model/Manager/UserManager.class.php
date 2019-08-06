@@ -90,7 +90,8 @@ class UserManager
 
     public function pseudo_exist($login)
     {
-
+        $url = explode('/', $_GET['url']);
+        var_dump($url); die();
         if(strpos($_GET['url'],'updateUser'))
         {
             $authManager = new AuthManager(Connexion::getConnexion());
