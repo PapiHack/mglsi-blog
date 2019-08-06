@@ -15,11 +15,14 @@ ob_start();
     <div>
         <h3 style="color: green;"> <?= $success?> </h3>
     </div>
-<?php } ?>
+<?php }
+$url = explode('/',$_GET['url']);
+$statut = $url != 'addEditor' ? 'admin' : 'user';
+?>
 
     <form <?php if(isset($user)){ ?> action="<?= URI?>updateUser/<?= $user->getId() ?>" <?php } ?> action="<?= URI?>register" class="form-vertical" method="POST">
         <div class="form-group">
-            <legend><?= isset($user) ? 'Edition' : 'Ajout' ?> d'un <?= SessionManager::get('add') == 'admin' ? 'admin' : 'éditeur' ?></legend>
+            <legend><?= isset($user) ? 'Edition' : 'Ajout' ?> d'un <?= $statut ?></legend>
             <?php if(isset($user) && $user->getId() == SessionManager::get('user')->getId()) {
                 $tokenAdmin = $this->tokenManager->getTokenByUser($user->getId());
              ?>
@@ -32,7 +35,7 @@ ob_start();
             }?>
         </div>
 
-        <input type="hidden" name="statut" value="<?= SessionManager::get('add') == 'admin' ? 'admin' : 'user'?>"/>
+        <input type="hidden" name="statut" value="<?= $statut?>"/>
 
         <div class="row">
             <div class="form-group">

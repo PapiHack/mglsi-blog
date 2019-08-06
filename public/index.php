@@ -15,7 +15,7 @@
  define('WEBROOT',str_replace('index.php','',$_SERVER['SCRIPT_NAME']));
  define('ROOT',str_replace('index.php','',$_SERVER['SCRIPT_FILENAME']));
  $uri = explode('/',WEBROOT);
- 
+
  define('URI','/'.$uri[1].'/');
 
  require_once('../Config/autoloader.php');
@@ -58,6 +58,11 @@
  $router->get('/removeArticle/:id','AuthController@removeArticle');
  $router->get('/removeCategorie/:id','AuthController@removeCategorie');
  $router->get('/removeEditor/:id','AuthController@removeUser');
+ $router->get('/revokeToken','AuthController@gestionAdmin');
+ $router->get('/removeAdmin','AuthController@gestionMembre');
+ $router->get('/removeArticle','AuthController@gestionArticle');
+ $router->get('/removeCategorie','AuthController@gestionCategorie');
+ $router->get('/removeEditor','AuthController@gestionMembre');
 
  //POST Request
  $router->post('/register','AuthController@register');
