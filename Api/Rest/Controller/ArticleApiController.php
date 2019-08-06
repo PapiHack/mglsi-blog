@@ -68,7 +68,7 @@ class ArticleApiController
 
         if(empty($allArticles))
         {
-            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Aucun article trouvé !']);
             die();
         }
         foreach($allArticles as $article)
@@ -205,7 +205,7 @@ class ArticleApiController
 
         if(empty($articlesByCategorie))
         {
-            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé pour cette catégorie !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé pour cette catégorie !'], 'message') : json_encode(['message' => 'Aucun article trouvé pour cette catégorie !']);
             die();
         }
         foreach($articlesByCategorie as $article)
@@ -268,7 +268,7 @@ class ArticleApiController
 
         if(empty($allArticles))
         {
-            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Aucun article trouvé !']);
             die();
         }
         echo $dataType == 'xml' ? $this->generate_valid_xml_from_array($this->groupByCategory($allArticles), 'articles', 'article') : json_encode($this->groupByCategory($allArticles));
