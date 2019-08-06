@@ -318,8 +318,8 @@ class ArticleApiController
 
     private function generate_xml_from_array($array, $node_name)
     {
-        //$xml = '';
-        $xml = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
+        $xml = '';
+        /*$xml = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";*/
 
         if (is_array($array) || is_object($array))
         {
