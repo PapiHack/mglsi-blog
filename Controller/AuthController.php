@@ -349,6 +349,7 @@ class AuthController
 
     public function updateUser($id)
     {
+        $id = (int) $id;
         $registerValid = $this->validationService->registerValidation($_POST);
         $user = $this->userManager->get($id);
         $auth = $this->authManager->getAuthByUser($id);

@@ -64,11 +64,11 @@ class AuthManager
     public function get($id)
     {
         $id = (int) $id;
-
+        
         $request = $this->db->query('SELECT * FROM Auth WHERE id = '.$id);
         $data = $request->fetch(PDO::FETCH_ASSOC);
-
-        return new Auth($data);
+        $auth = ($data === false) ? null : new Auth($data);
+        return $auth;
     }
 
     public function update(Auth $auth)
@@ -123,7 +123,9 @@ class AuthManager
         $request = $this->db->prepare('SELECT * FROM Auth WHERE idUser = :user');
         $request->execute(['user' => $user]);
 
-        return new Auth($request->fetch(PDO::FETCH_ASSOC));
+        $data = $request->fetch(PDO::FETCH_ASSOC);
+        $auth = ($data === false) ? null : new Auth($data);
+        return $auth;
     }
 
 }

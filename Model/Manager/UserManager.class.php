@@ -91,12 +91,11 @@ class UserManager
     public function pseudo_exist($login)
     {
         $url = explode('/', $_GET['url']);
-        var_dump($url); die();
-        if(strpos($_GET['url'],'updateUser'))
+        if($url[0] == 'updateUser')
         {
             $authManager = new AuthManager(Connexion::getConnexion());
             $auths = $authManager->getAll();
-            $_auth = $authManager->get($_GET['id']);
+            $_auth = $authManager->get($url[1]);
             $pseudoExist = 0;
 
             foreach($auths as $auth)
@@ -115,11 +114,11 @@ class UserManager
 
     public function mail_exist($mail)
     {
-
-        if(strpos($_GET['url'],'updateUser'))
+        $url = explode('/', $_GET['url']);
+        if($url[0] == 'updateUser')
         {
             $users = $this->getAll();
-            $_user = $this->get($_GET['id']);
+            $_user = $this->get($url[1]);
             $mailExist = 0;
 
             foreach($users as $user)
