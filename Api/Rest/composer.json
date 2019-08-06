@@ -1,0 +1,13 @@
+{
+    "name": "root/api",
+    "description": "REST API of MGLSI NEWS website",
+    "authors": [
+        {
+            "name": "Papi Mbaye",
+            "email": "itdev94@gmail.com"
+        }
+    ],
+    "require": {
+        "zircote/swagger-php": "^3.0"
+    }
+}

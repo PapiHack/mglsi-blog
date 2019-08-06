@@ -20,7 +20,14 @@ ob_start();
                     </article>
                 </div><?php
             }
-    ?>
+            
+    ?> <br>
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <?= $this->pagination ?>
+        </div>
+    </div>
+    <br>
 </div>
 
 <?php $content = ob_get_clean();
