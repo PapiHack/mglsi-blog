@@ -18,6 +18,9 @@
  define('URI','/'.$uri[1].'/');
 
  require_once('../Config/autoloader.php');
+ require_once('../Api/Soap/MySoapServer.php');
+ require_once('../Api/Rest/vendor/autoload.php');
+ require_once('../Api/Rest/Controller/ArticleApiController.php');
 
  $router = new Router($_GET['url']);
 
@@ -71,6 +74,16 @@
  $router->post('/updateCategorie','AuthController@updateCategorie');
  $router->post('/updateUser/:id','AuthController@updateUser');
  $router->post('/updateArticle','AuthController@updateArticle');
+
+ // API Request
+ $router->get('/Apiarticles','ArticleApiController@get');
+ $router->get('/Apiarticles/:type','ArticleApiController@get');
+ $router->get('/Apiarticle/:id','ArticleApiController@getById');
+ $router->get('/Apiarticle/:id/:type','ArticleApiController@getById');
+ $router->get('/Apiarticlescategorie/:id','ArticleApiController@getArticleByCategory');
+ $router->get('/Apiarticlescategorie/:id/:type','ArticleApiController@getArticleByCategory');
+ $router->get('/ApiarticlesByCategory','ArticleApiController@getAllArticlesGroupByCategory');
+ $router->get('/ApiarticlesByCategory/:type','ArticleApiController@getAllArticlesGroupByCategory');
 
 
  $router->run();

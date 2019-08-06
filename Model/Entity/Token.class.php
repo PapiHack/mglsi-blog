@@ -1,18 +1,18 @@
 <?php
 /**
- * 
+ *
  * @author P@piHack3R
  * @since 02/07/19
  * @version 1.0.0
- * 
+ *
  */
 
 require_once('../Utilities/HydratationTrait.php');
 
 /**
- * 
+ *
  * Classe représentant un Token.
- * 
+ *
  */
 class Token
 {
