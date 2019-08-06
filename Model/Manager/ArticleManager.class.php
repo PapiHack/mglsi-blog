@@ -59,7 +59,11 @@ class ArticleManager
         }
 
         $url = explode('/', $_GET['url']);
-        $page = (empty($_GET['url'])) ? 1 : $page = $url[1];
+        if(empty($_GET['url']) || $url[0] == 'index')
+            $page = 1;
+        else
+            $page = $url[1];
+            
         $nbre_total_articles = count($articles);
         $nbre_articles_par_page = 4;
         $last_page = ceil($nbre_total_articles / $nbre_articles_par_page);
