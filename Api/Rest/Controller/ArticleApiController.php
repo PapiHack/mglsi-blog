@@ -39,8 +39,8 @@ class ArticleApiController
      *      path="/articles",
      *      tags={"article"},
      *      @OA\Parameter(
-     *          name="dataType",
-     *          in="query",
+     *          name="type",
+     *          in="path",
      *          description="Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
      *          required=false,
      *          @OA\Schema(type="string")
@@ -67,8 +67,10 @@ class ArticleApiController
         $allArticles = $this->articleManager->getAll();
 
         if(empty($allArticles))
+        {
             echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
-
+            die();
+        }
         foreach($allArticles as $article)
         {
             $auteur = $this->userManager->get($article->getAuteur());
@@ -98,11 +100,11 @@ class ArticleApiController
 
     /**
      * @OA\Get(
-     *      path="/articles/{id}",
+     *      path="/article/{id}",
      *      tags={"article"},
      *      @OA\Parameter(
-     *          name="dataType",
-     *          in="query",
+     *          name="type",
+     *          in="path",
      *          description="Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
      *          required=false,
      *          @OA\Schema(type="string")
@@ -135,8 +137,10 @@ class ArticleApiController
         $article = $this->articleManager->get($id);
 
         if($article == null)
+        {
             echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Cet article n\'existe pas !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
-
+            die();
+        }
         $auteur = $this->userManager->get($article->getAuteur());
         $categorie = $this->categorieManager->get($article->getCategorie());
 
@@ -166,8 +170,8 @@ class ArticleApiController
      *      path="/articles/categorie/{id}",
      *      tags={"article"},
      *      @OA\Parameter(
-     *          name="dataType",
-     *          in="query",
+     *          name="type",
+     *          in="path",
      *          description="Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
      *          required=false,
      *          @OA\Schema(type="string")
@@ -200,8 +204,10 @@ class ArticleApiController
         $articlesByCategorie = $this->articleManager->getByCategory($id);
 
         if(empty($articlesByCategorie))
+        {
             echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé pour cette catégorie !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
-
+            die();
+        }
         foreach($articlesByCategorie as $article)
         {
             $auteur = $this->userManager->get($article->getAuteur());
@@ -234,8 +240,8 @@ class ArticleApiController
      *      path="/articlesByCategory",
      *      tags={"article"},
      *      @OA\Parameter(
-     *          name="dataType",
-     *          in="query",
+     *          name="type",
+     *          in="path",
      *          description="Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
      *          required=false,
      *          @OA\Schema(type="string")
@@ -261,8 +267,10 @@ class ArticleApiController
         $allArticles = $this->articleManager->getAll();
 
         if(empty($allArticles))
+        {
             echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Aucun article trouvé !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
-
+            die();
+        }
         echo $dataType == 'xml' ? $this->generate_valid_xml_from_array($this->groupByCategory($allArticles), 'articles', 'article') : json_encode($this->groupByCategory($allArticles));
     }
 

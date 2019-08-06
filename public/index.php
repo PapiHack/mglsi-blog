@@ -76,8 +76,8 @@
  $router->post('/updateArticle','AuthController@updateArticle');
 
  // API Request
- $router->get('/Api/Rest/articles/:id','ArticleApiController@getById');
- $router->get('/Api/Rest/articles/:id/:type','ArticleApiController@getById');
+ $router->get('/Api/Rest/article/:id','ArticleApiController@getById');
+ $router->get('/Api/Rest/article/:id/:type','ArticleApiController@getById');
  $router->get('/Api/Rest/articles','ArticleApiController@get');
  $router->get('/Api/Rest/articles/:type','ArticleApiController@get');
  $router->get('/Api/Rest/articles/categorie/:id','ArticleApiController@getArticleByCategory');

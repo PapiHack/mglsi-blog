@@ -22,8 +22,8 @@
                 "operationId": "ArticleApiController::get",
                 "parameters": [
                     {
-                        "name": "dataType",
-                        "in": "query",
+                        "name": "type",
+                        "in": "path",
                         "description": "Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
                         "required": false,
                         "schema": {
@@ -78,7 +78,7 @@
                 }
             }
         },
-        "/articles/{id}": {
+        "/article/{id}": {
             "get": {
                 "tags": [
                     "article"
@@ -86,8 +86,8 @@
                 "operationId": "ArticleApiController::getById",
                 "parameters": [
                     {
-                        "name": "dataType",
-                        "in": "query",
+                        "name": "type",
+                        "in": "path",
                         "description": "Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
                         "required": false,
                         "schema": {
@@ -146,8 +146,8 @@
                 "operationId": "ArticleApiController::getArticleByCategory",
                 "parameters": [
                     {
-                        "name": "dataType",
-                        "in": "query",
+                        "name": "type",
+                        "in": "path",
                         "description": "Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
                         "required": false,
                         "schema": {
@@ -219,8 +219,8 @@
                 "operationId": "ArticleApiController::getAllArticlesGroupByCategory",
                 "parameters": [
                     {
-                        "name": "dataType",
-                        "in": "query",
+                        "name": "type",
+                        "in": "path",
                         "description": "Permet de spécifier le format de données (xml/json) que va retourner la requête. S'il n'est pas spécifier ce sera du JSON par défaut.",
                         "required": false,
                         "schema": {
@@ -359,7 +359,7 @@
             "description": "Opérations et informations disponibles sur les articles .",
             "externalDocs": {
                 "description": "Visitez le site du MGLSI_NEWS",
-                "url": "http://localhost/mglsi_blog"
+                "url": "http://localhost/mglsi-blog"
             }
         }
     ]

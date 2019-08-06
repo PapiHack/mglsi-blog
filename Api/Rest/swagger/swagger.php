@@ -13,7 +13,7 @@ use OpenApi\Annotations as OA;
  * )
  * 
  * @OA\Server(
- *      url="http://papihack/mglsi_news/Api/Rest",
+ *      url="http://localhost/mglsi-blog/Api/Rest",
  *      description="Cette url est la racine de toutes les endpoints à interroger."
  * )
  * 
@@ -22,7 +22,7 @@ use OpenApi\Annotations as OA;
  *      description="Opérations et informations disponibles sur les articles .",
  *      @OA\ExternalDocumentation(
  *          description="Visitez le site du MGLSI_NEWS",
- *          url="http://papihack/mglsi_news/public/"
+ *          url="http://localhost/mglsi-blog"
  *       )
  * )
  */
