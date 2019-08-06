@@ -36,7 +36,7 @@ class ArticleApiController
 
     /**
      * @OA\Get(
-     *      path="/articles",
+     *      path="/articles/{type}",
      *      tags={"article"},
      *      @OA\Parameter(
      *          name="type",
@@ -100,7 +100,7 @@ class ArticleApiController
 
     /**
      * @OA\Get(
-     *      path="/article/{id}",
+     *      path="/article/{id}/{type}",
      *      tags={"article"},
      *      @OA\Parameter(
      *          name="type",
@@ -138,7 +138,7 @@ class ArticleApiController
 
         if($article == null)
         {
-            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Cet article n\'existe pas !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
+            echo $dataType == 'xml' ? $this->generate_xml_from_array(['message' => 'Article non innexistant !'], 'message') : json_encode(['message' => 'Cet article n\'existe pas !']);
             die();
         }
         $auteur = $this->userManager->get($article->getAuteur());
@@ -167,7 +167,7 @@ class ArticleApiController
 
     /**
      * @OA\Get(
-     *      path="/articles/categorie/{id}",
+     *      path="/articles/categorie/{id}/{type}",
      *      tags={"article"},
      *      @OA\Parameter(
      *          name="type",
@@ -237,7 +237,7 @@ class ArticleApiController
 
     /**
      * @OA\Get(
-     *      path="/articlesByCategory",
+     *      path="/articlesByCategory/{type}",
      *      tags={"article"},
      *      @OA\Parameter(
      *          name="type",
@@ -318,7 +318,8 @@ class ArticleApiController
 
     private function generate_xml_from_array($array, $node_name)
     {
-        $xml = '';
+        //$xml = '';
+        $xml = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
         if (is_array($array) || is_object($array))
         {
