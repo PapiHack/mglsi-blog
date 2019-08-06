@@ -14,7 +14,7 @@
         }
     ],
     "paths": {
-        "/articles": {
+        "/articles/{type}": {
             "get": {
                 "tags": [
                     "article"
@@ -78,7 +78,7 @@
                 }
             }
         },
-        "/article/{id}": {
+        "/article/{id}/{type}": {
             "get": {
                 "tags": [
                     "article"
@@ -138,7 +138,7 @@
                 }
             }
         },
-        "/articles/categorie/{id}": {
+        "/articles/categorie/{id}/{type}": {
             "get": {
                 "tags": [
                     "article"
@@ -211,7 +211,7 @@
                 }
             }
         },
-        "/articlesByCategory": {
+        "/articlesByCategory/{type}": {
             "get": {
                 "tags": [
                     "article"
