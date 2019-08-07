@@ -46,3 +46,7 @@ Contient les différents controlleurs de notre application.
 - Api  
 
 Contient le code métier de notre `API REST`.
+
+### NB  
+
+N'oubliez pas de renseigner les paramètres de configuration de votre BD au niveau de `Api/Rest/config/database.php` pour l'API.  
