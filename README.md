@@ -50,3 +50,12 @@ Contient le code métier de notre `API REST`.
 ### NB  
 
 N'oubliez pas de renseigner les paramètres de configuration de votre BD au niveau de `Api/Rest/config/database.php` pour l'API.  
+
+
+## Authors
+
+- [M.B.C.M](https://itdev.sn)
+[![My Twitter Link](https://img.shields.io/twitter/follow/the_it_dev?style=social)](https://twitter.com/the_it_dev)
+
+- [DEVAL](http://www.deval.website)
+[![My Twitter Link](https://img.shields.io/twitter/follow/the_it_dev?style=social)](https://twitter.com/alioune_kanoute)
