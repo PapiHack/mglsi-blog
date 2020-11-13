@@ -7,14 +7,14 @@ ob_start();
 ?>
 
 <div id="contenu" class="col-lg-12">
-<?php  if(isset($error)) { ?>
+    <?php if (isset($error)) { ?>
 
-    <div>
-        <h3 style="color: red;"> <?= $error ?> </h3>
-    </div>
+        <div>
+            <h3 style="color: red;"> <?= $error ?> </h3>
+        </div>
 
     <?php }  ?>
-    <form action="<?= URI?>login" method="POST" class="form-vertical">
+    <form action="<?= URI ?>login" method="POST" class="form-vertical">
         <div class="form-group">
             <legend>Authentification</legend>
         </div>
@@ -23,7 +23,7 @@ ob_start();
             <div class="form-group">
                 <label for="pseudo" class="col-lg-3">Pseudo</label>
                 <div class="col-lg-6">
-                    <input type="text" name="pseudo" class="form-control" required id="pseudo" placeholder="Votre pseudo..."/>
+                    <input type="text" name="pseudo" class="form-control" required id="pseudo" placeholder="Votre pseudo..." />
                 </div>
             </div>
         </div>
@@ -38,17 +38,18 @@ ob_start();
             </div>
         </div>
 
-            <br>
+        <br>
         <div class="form-group">
-            <div class="col-lg-offset-3 col-lg-4">
-                <input type="submit" value="Se connecter" class="btn btn-success"> <button id="cancel" class="btn btn-danger">Annuler</button>
+            <div class="col-lg-offset-3 col-lg-9">
+                <input type="submit" value="Se connecter" class="btn btn-success" />
+                <button id="cancel" class="btn btn-danger">Annuler</button>
             </div>
         </div>
     </form>
 </div>
 
 <script>
-    document.getElementById('cancel').addEventListener('click', function(event){
+    document.getElementById('cancel').addEventListener('click', function(event) {
         event.preventDefault()
         window.location.replace('/mglsi-blog/index')
     })
